@@ -30,7 +30,15 @@ Below is what you need to get HospitalNav running.
    pip3 install pyorient
    ```
 
-4. Run database launcher
+5. Run database launcher
    ```sh
    python3 database_interface/Launcher.py
    ```
+
+6. Check database
+   ```sh
+   http://localhost:2480/
+   ```
+   User: root
+   
+   Password: rootpwd
