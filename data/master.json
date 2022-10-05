@@ -1,0 +1,16 @@
+{
+  "Chandler Main Entrance": {
+    "is_endpoint": false,
+    "photosphere": "link1",
+    "connectList": [
+      "Chandler Pharmacy"
+    ]
+  },
+  "Chandler Pharmacy": {
+    "is_endpoint": true,
+    "photosphere": "link2",
+    "connectList": [
+      "Chandler Main Entrance"
+    ]
+  }
+}
