@@ -13,6 +13,8 @@
                 left: 25px;
             }
     </style>
+
+  <link rel="stylesheet" href="./node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.css"/> <!-- Load in .css file -->
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
@@ -53,5 +55,23 @@
     <button type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button type="button" class="btn btn-primary btn-lg">NEXT</button>
       
+
+<!-- Load in the photosphere dependencies -->
+<script src="./node_modules/three/build/three.min.js"></script>
+<script src="./node_modules/uevent/browser.js"></script>
+<script src="./node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.js"></script>
+
+<!-- Definne the size of the viewer -->
+<div id="viewer" style="width: 100vw; height: 100vh;"></div>
+
+
+<!-- Initialize a Phot viewer -->
+<!-- Still not fuctional currently -->
+<script>
+  const viewer = new PhotoSphereViewer.Viewer({
+    container: document.querySelector('#viewer'),
+    panorama: '',
+  });
+</script>
 </body>
 </html>
