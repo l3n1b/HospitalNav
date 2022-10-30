@@ -55,6 +55,8 @@
     <button type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button type="button" class="btn btn-primary btn-lg">NEXT</button>
       
+    <button onclick="toggleViewer()" id=dim_button class="btn btn-secondary btn-lg" >3D-View</button>
+
 
 <!-- Load in the photosphere dependencies -->
 <script src="./node_modules/three/build/three.min.js"></script>
@@ -62,16 +64,31 @@
 <script src="./node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.js"></script>
 
 <!-- Definne the size of the viewer -->
-<div id="viewer" style="width: 100vw; height: 100vh;"></div>
+<div id="viewer" style="width: 50vw; height: 50vh;"></div>
 
 
-<!-- Initialize a Phot viewer -->
+<!-- Initialize a Photo viewer -->
 <!-- Still not fuctional currently -->
 <script>
-  const viewer = new PhotoSphereViewer.Viewer({
-    container: document.querySelector('#viewer'),
-    panorama: '',
-  });
+  /*
+   * Function toggles the dimension of the view between 2-d and 3-d for the user upon click of button 
+   * Bug: Once the viewer is removed it cannot be recovered // looking into documentation abouth either photosphere viewer 
+   * // or a way to hide element instead of remove 
+  */
+  function toggleViewer() {
+    var t = document.getElementById("dim_button");
+    if (t.innerHTML == "3D-View"){ // if the view is 2-D 
+      t.innerHTML = "2-D View"; // Set the button to new 2-D value 
+      let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer 
+        container: document.querySelector('#viewer'),
+        panorama: '',
+      });
+    }
+    else { // view in 3-d 
+      t.innerHTML = "3D-View"; // switch the button and remove the viewer 
+      viewer.remove()
+    }
+}
 </script>
 </body>
 </html>
