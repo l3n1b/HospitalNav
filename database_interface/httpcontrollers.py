@@ -7,7 +7,7 @@ from DBTools import shortestPath
 from DBTools import getEndpoints
 import os
 import pyorient
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_file
 
 app = Flask(__name__)
 
@@ -34,6 +34,10 @@ def get_endpoints():
 
     client.db_open(dbname, login, password)
     return jsonify(getEndpoints(client))
+    
+@app.route('/get_image/<string:name>', methods=['GET'])
+def get_image(name):
+    return send_file('../data/images/' + name + '.jpg', mimetype='image/gif')
 
 @app.route('/reset', methods=['GET'])
 def reset():
