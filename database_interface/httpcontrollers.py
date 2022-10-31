@@ -7,9 +7,21 @@ from DBTools import shortestPath
 from DBTools import getEndpoints
 import os
 import pyorient
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+
+    client = pyorient.OrientDB("localhost", 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+    return render_template('main-page.html', endpoints=getEndpoints(client))
 
 @app.route('/get_endpoints', methods=['GET'])
 def get_endpoints():
