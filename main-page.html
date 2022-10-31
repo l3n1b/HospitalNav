@@ -68,6 +68,13 @@
 
 
 <!-- Initialize a Photo viewer -->
+<script>
+  let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer 
+        container: document.querySelector('#viewer'),
+        panorama: '',
+      });
+      document.getElementById("viewer").style.display = "none"; // hide the display 
+</script>
 <!-- Still not fuctional currently -->
 <script>
   /*
@@ -78,15 +85,13 @@
   function toggleViewer() {
     var t = document.getElementById("dim_button");
     if (t.innerHTML == "3D-View"){ // if the view is 2-D 
-      t.innerHTML = "2-D View"; // Set the button to new 2-D value 
-      let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer 
-        container: document.querySelector('#viewer'),
-        panorama: '',
-      });
+      t.innerHTML = "2D-View"; // Set the button to new 2-D value 
+      document.getElementById("viewer").style.display = "block"; // show the viewer 
+      
     }
     else { // view in 3-d 
       t.innerHTML = "3D-View"; // switch the button and remove the viewer 
-      viewer.remove()
+      document.getElementById("viewer").style.display = "none"; // hide the viewer 
     }
 }
 </script>
