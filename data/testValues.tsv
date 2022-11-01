@@ -1,0 +1,19 @@
+name	photosphere	is_endpoint	x_coord	y_coord	map	connectList
+Bridge Entrance	link1	FALSE	1	1	2	Ballrooms, Circulation Desk, Worsham Theater
+Ballrooms	link2	TRUE	1	1	2	Bridge Entrance, Student Center Front Entrance, Starbucks, Bookstore
+Circulation Desk	link3	TRUE	1	1	2	CATS Staircase, Worsham Theater, Auntie Ann's, Student Center Front Entrance, Bookstore, Starbucks
+CATS Staircase	link4	FALSE	1	1	2	Bridge Entrance, Circulation Desk, Panda Express, Student Center Front Entrance
+Champions Kitchen	link5	TRUE	1	1	1	CATS Staircase, Below Bridge Entrance
+Below Bridge Entrance	link6	FALSE	1	1	1	Champions Kitchen, CAT's Staircase, Panda Express
+Panda Express	link7	TRUE	1	1	1	CATS Staircase, Chick-fil-A, Cat's Den, Below Bridge Entrance
+Chick-fil-A	link8	TRUE	1	1	1	Panda Express, Subway
+Worsham Theater	link9	TRUE	1	1	2	Circulation Desk, Bridge Entrance
+Subway	link10	TRUE	1	1	1	Chick-fil-A, Cat's Den
+Student Center Front Entrance	link11	FALSE	1	1	2	Bridge Entrance, CATS Staircase, Circulation Desk, Bookstore
+Cat's Den	link12	TRUE	1	1	1	Subway
+Bookstore	link13	TRUE	1	1	2	Student Center Front Entrance
+Auntie Ann's	link14	TRUE	1	1	2	Circulation Desk, Gym, NuHealth
+Gym	link15	TRUE	1	1	2	Auntie Ann's, NuHealth
+NuHealth	link16	TRUE	1	1	2	Gym, Auntie Ann's
+Bookstore	link17	TRUE	1	1	2	Starbucks, Circulation Desk, Ballrooms
+Starbucks	link18	TRUE	1	1	2	Bookstore, Circulation Desk, Ballrooms
