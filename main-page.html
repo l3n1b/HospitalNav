@@ -12,7 +12,7 @@
                 top: 150px;
                 left: 25px;
             }
-    </style>
+    </style> 
 
   <link rel="stylesheet" href="./node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.css"/> <!-- Load in .css file -->
 </head>
@@ -53,7 +53,7 @@
   
     
     <button type="button" class="btn btn-secondary btn-lg">BACK</button>
-    <button type="button" class="btn btn-primary btn-lg">NEXT</button>
+    <button onclick="nextImage()" type="button" class="btn btn-primary btn-lg">NEXT</button>
       
     <button onclick="toggleViewer()" id=dim_button class="btn btn-secondary btn-lg" >3D-View</button>
 
@@ -71,11 +71,12 @@
 <script>
   let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer 
         container: document.querySelector('#viewer'),
-        panorama: '',
+        panorama: "https://photo-sphere-viewer-data.netlify.app/assets/sphere.jpg",
       });
       document.getElementById("viewer").style.display = "none"; // hide the display 
 </script>
 <!-- Still not fuctional currently -->
+
 <script>
   /*
    * Function toggles the dimension of the view between 2-d and 3-d for the user upon click of button 
@@ -97,6 +98,19 @@
       document.getElementById("img2").style.display = "block";
     }
 }
+</script>
+
+<script>
+  function nextImage() {
+    var t = document.getElementById("dim_button")
+    if (t.innerHTML == "2D-View") // if the website is in 3D-Mode
+    {
+       // use the api to obtain the next image from server 
+      viewer.setPanorama('https://www.openfootage.net/Openfootage/Vorschau/00309_Snow/00309_Snow_Preview_360_Panorama.jpg'); // insert the image into the photoviewer 
+      // store the last image in a buffer 
+      console.log("Ran Next Image");
+    }
+  }
 </script>
 </body>
 </html>
