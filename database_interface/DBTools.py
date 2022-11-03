@@ -26,9 +26,9 @@ def getEndpoints(client):
     endpoints = client.query("SELECT name FROM Location WHERE is_endpoint = TRUE")
     return [endpoint.__getattr__('name') for endpoint in endpoints]
 
-def getphoto(client, name):
-    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")
-    return photosphere[0].__getattr__('photosphere')
+#def getphoto(client, name):
+#    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")
+#    return photosphere[0].__getattr__('photosphere')
 
 def loadDB(filepath):
 
@@ -51,10 +51,11 @@ def loadDB(filepath):
 
     client.command("CREATE CLASS Location EXTENDS V")
     client.command("CREATE PROPERTY Location.name String")
-    client.command("CREATE PROPERTY Location.photosphere String")
+    client.command("CREATE PROPERTY Location.is_startpoint Boolean")
     client.command("CREATE PROPERTY Location.is_endpoint Boolean")
     client.command("CREATE PROPERTY Location.x_coord Double")
     client.command("CREATE PROPERTY Location.y_coord Double")
+    client.command("CREATE PROPERTY Location.building String")
     client.command("CREATE PROPERTY Location.map String")
     client.command("CREATE PROPERTY Location.metric Integer")
 
@@ -65,11 +66,12 @@ def loadDB(filepath):
     #loop through each key in the json database and create a new vertex, V with the id in the database
     for key in data:
         client.command("CREATE VERTEX Location SET name = '" + key
-        + "', photosphere = '" + data.get(key).get("photosphere")
+        + "', is_startpoint = '" + str(data.get(key).get("is_startpoint"))
         + "', is_endpoint = " + str(data.get(key).get("is_endpoint"))
         + ", x_coord = " + str(data.get(key).get("x_coord"))
         + ", y_coord = " + str(data.get(key).get("y_coord"))
-        + ", map = " + str(data.get(key).get("map")))
+        + ", building = " + data.get(key).get("building")
+        + ", map = " + data.get(key).get("map"))
 
     #loop through each key creating edges from location to location
     for key in data:

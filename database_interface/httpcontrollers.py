@@ -9,7 +9,10 @@ import os
 import pyorient
 from flask import Flask, request, jsonify, render_template, send_file
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder = './templates')
+
+filepath = './data/testValues.json'
+loadDB(filepath)
 
 @app.route('/')
 def home():
