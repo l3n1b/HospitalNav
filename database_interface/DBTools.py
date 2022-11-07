@@ -25,6 +25,10 @@ def getname(client, rid):
 def getEndpoints(client):
     endpoints = client.query("SELECT name FROM Location WHERE is_endpoint = TRUE")
     return [endpoint.__getattr__('name') for endpoint in endpoints]
+    
+def getStartpoints(client):
+    startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
+    return [startpoint.__getattr__('name') for startpoint in startpoints]
 
 #def getphoto(client, name):
 #    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")

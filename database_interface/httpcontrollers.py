@@ -5,6 +5,7 @@ import random
 from DBTools import loadDB
 from DBTools import shortestPath
 from DBTools import getEndpoints
+from DBTools import getStartpoints
 import os
 import pyorient
 from flask import Flask, request, jsonify, render_template, send_file
@@ -24,7 +25,25 @@ def home():
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
-    return render_template('main-page.html', endpoints=getEndpoints(client))
+    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start='NULL', end='NULL', path=[])
+    
+@app.route('/<string:start>&<string:end>', methods=['GET'])
+def directions(start, end):
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+
+    client = pyorient.OrientDB("localhost", 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+    
+    path = []
+    
+    if (start != 'NULL') and (end != 'NULL'):
+        path=shortestPath(start, end)
+    
+    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start=start, end=end, path=path)
 
 @app.route('/get_endpoints', methods=['GET'])
 def get_endpoints():
