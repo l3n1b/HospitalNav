@@ -25,14 +25,14 @@ Below is what you need to get HospitalNav running.
    docker run -d --name orientdb -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=rootpwd orientdb:2.2
    ```
    
-4. Install pyorient
+4. Install requirements
    ```sh
-   pip3 install pyorient
+   pip3 install -r requirements.txt
    ```
 
-5. Run database launcher
+5. Run Flask app
    ```sh
-   python3 database_interface/Launcher.py
+   python3 database_interface/httpcontrollers.py
    ```
 
 6. Check database
@@ -42,3 +42,9 @@ Below is what you need to get HospitalNav running.
    User: root
    
    Password: rootpwd
+   
+
+7. Check website
+   ```sh
+   http://localhost:5000/
+   ```
