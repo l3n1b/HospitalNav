@@ -117,4 +117,4 @@ def shortestPath(locationA, locationB):
     client.close()
 #    return distance-1, path
 
-    return path
+    return distance-1, path
