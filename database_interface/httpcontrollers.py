@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify, render_template, send_file
 
 app = Flask(__name__, static_folder = './templates')
 
-filepath = './data/testValues.json'
+filepath = './data/KYCTestValues.json'
 loadDB(filepath)
 
 @app.route('/')
@@ -63,7 +63,7 @@ def get_image(name):
 
 @app.route('/reset', methods=['GET'])
 def reset():
-    filepath = './data/testValues.json'
+    filepath = './data/KYCTestValues.json'
     loadDB(filepath)
     return jsonify("reset")
 

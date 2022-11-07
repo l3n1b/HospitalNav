@@ -2,8 +2,8 @@ import json
 import csv
 import os
 
-filepath = './data/testValues.tsv'
-savepath = './data/testValues.json'
+filepath = './data/KYCTestValues.tsv'
+savepath = './data/KYCTestValues.json'
 
 keys = list()
 dictionary = {}

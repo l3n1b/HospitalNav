@@ -18,7 +18,8 @@ import pyorient
 
 #path to json file
 #filepath = './data/master.json'
-filepath = './data/testValues.json'
+#filepath = './data/testValues.json'
+filepath = './data/KYCTestValues.json'
 print(os.getcwd())
 
 #loadDB with JSON data, removing existing database if it exist
