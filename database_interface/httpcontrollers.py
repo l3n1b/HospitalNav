@@ -25,7 +25,7 @@ def home():
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
-    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start='NULL', end='NULL', path=[])
+    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start='NULL', end='NULL', path=[], jsonPath=json.dumps([]))
     
 @app.route('/<string:start>&<string:end>', methods=['GET'])
 def directions(start, end):
@@ -43,7 +43,7 @@ def directions(start, end):
     if (start != 'NULL') and (end != 'NULL'):
         path=shortestPath(start, end)
     
-    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start=start, end=end, path=path)
+    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start=start, end=end, path=path, jsonPath=json.dumps(path))
 
 @app.route('/get_endpoints', methods=['GET'])
 def get_endpoints():
