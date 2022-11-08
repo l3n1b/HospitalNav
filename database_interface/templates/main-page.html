@@ -73,7 +73,7 @@
     <img src="https://img.freepik.com/free-photo/blurred-abstract-background-interior-view-looking-out-toward-empty-office-lobby-entrance-doors-glass-curtain-wall-with-frame_1339-6370.jpg?w=996&t=st=1665948644~exp=1665949244~hmac=be09c965a4642191e1ae612e16fb501d76aacf89968fc0249420c5644b802cdf" class="float-start rounded" width="200" height="200">
     
     
-    <button type="button" class="btn btn-secondary btn-lg">BACK</button>
+    <button onclick="prevImage()" type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button onclick="nextImage()" type="button" class="btn btn-primary btn-lg">NEXT</button>
       
     <button onclick="toggleViewer()" id=dim_button class="btn btn-secondary btn-lg" >3D-View</button>
@@ -97,6 +97,7 @@
     let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
         container: document.querySelector('#viewer'),
         panorama: "http://localhost:5000/get_image/" + imName,
+        caption: imName,
       });
       document.getElementById("viewer").style.display = "none"; // hide the display
       
@@ -104,8 +105,17 @@
         if (current+1 < path.length){
             current += 1;
             viewer.setPanorama("http://localhost:5000/get_image/" + path[current]);
+            viewer.setOptions({caption: path[current]});
         }
       }
+    
+    function prevImage() {
+      if (current-1 >= 0){
+          current -= 1;
+          viewer.setPanorama("http://localhost:5000/get_image/" + path[current]);
+          viewer.setOptions({caption: path[current]});
+      }
+    }
 </script>
 <!-- Still not fuctional currently -->
 
