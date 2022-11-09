@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Hospital GPS</a>
+          <a class="navbar-brand" href="http://localhost:5000">Hospital GPS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -62,10 +62,17 @@
         <div class="position-absolute bottom-0 end-0"></div>
       </div>
       <div class="container-fluid">
-          <h3>Directions</h3>
+          <h3 style="display:inline">Directions</h3>
+          {% if start != "NULL" %}
+            <h3 style="display:inline">for {{ start }}</h3>
+          {% endif %}
+          {% if end != "NULL" %}
+            <h3 style="display:inline">to {{ end }}</h3>
+          {% endif %}
+          
           <ol>
               {% for location in path %}
-                  <li style="display:inline"><a href="#"></a>{{ location.name }}</li>
+                  <li id="{{ location.name }}" style="display:inline; border-width:3px; border-style:solid; border-color:#FF0000;">{{ location.name }}</li>
               {% endfor %}
           </ol>
       </div>
@@ -107,8 +114,11 @@
       });
       document.getElementById("viewer").style.display = "none"; // hide the display
       
+      document.getElementById("{{ start }}").style.fontWeight = "bold";
       function nextImage() {
         if (current+1 < path.length){
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "normal";
             current += 1;
 			document.getElementById("directions").innerHTML = path[current].string_direction;
             viewer.setPanorama("http://localhost:5000/get_image/" + path[current].name);
@@ -121,11 +131,15 @@
 				zoom: 0,
 				speed: '8rpm',
 			});
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "bold";
         }
       }
     
     function prevImage() {
       if (current-1 >= 0){
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "normal";
             current -= 1;
 			document.getElementById("directions").innerHTML = path[current].string_direction;
             viewer.setPanorama("http://localhost:5000/get_image/" + path[current].name);
@@ -138,6 +152,8 @@
 				zoom: 0,
 				speed: '8rpm',
 			});
+            element = document.getElementById(path[current].name);
+            element.style.fontWeight = "bold";
       }
     }
 </script>
