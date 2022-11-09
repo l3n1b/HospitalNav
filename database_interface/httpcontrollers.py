@@ -12,8 +12,9 @@ from flask import Flask, request, jsonify, render_template, send_file
 
 app = Flask(__name__, static_folder = './templates')
 
-filepath = './data/KYCTestValues.json'
+filepath = './data/testmap_nodes_angles.json'
 loadDB(filepath)
+shortestPath("roada1_F1", "Upstairs_Window")
 
 @app.route('/')
 def home():

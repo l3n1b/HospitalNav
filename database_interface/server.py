@@ -1,12 +1,12 @@
-import asyncio
-import websockets
-import websockets.exceptions
+# import asyncio
+# import websockets
+# import websockets.exceptions
 import DBTools
 import json
 import numpy as np
 
-url = 'localhost'
-port = 8001
+# url = 'localhost'
+# port = 8001
 
 # async def handler(websocket):
 #     connection_clients = dict()
@@ -24,31 +24,31 @@ port = 8001
 #         await websocket.send(response)
 
 
-# def query_parser(message):
-#     data = dict()
+def query_parser(message):
+    data = dict()
 
-#     split_msg = message.split(' ')
-#     if split_msg.len() == 0:
-#         return ""
+    split_msg = message.split(' ')
+    if split_msg.len() == 0:
+        return ""
 
-#     if split_msg[0] == "path": #get the shortest path from split_msg[1] to split_msg[2]
-#         if split_msg.len() != 3:
-#             data['error'] = True
-#             data['message'] = 'Expected exactly 2 location arguments'
-#             return json.dumps(data)
-#         else:
-#             path_json = DBTools.shortestPath(split_msg[1], split_msg[2])
-#             path = json.loads(path_json)
-#             return json.dumps(string_directions(path))
+    if split_msg[0] == "path": #get the shortest path from split_msg[1] to split_msg[2]
+        if split_msg.len() != 3:
+            data['error'] = True
+            data['message'] = 'Expected exactly 2 location arguments'
+            return json.dumps(data)
+        else:
+            path_json = DBTools.shortestPath(split_msg[1], split_msg[2])
+            path = json.loads(path_json)
+            return json.dumps(string_directions(path))
 
-#     elif split_msg[0] == "image": #return image corresponding to string node name
-#         if split_msg.len != 2:
-#             data['error'] = True
-#             data['message'] = 'Expected exactly 1 image argument'
-#             return json.dumps(data)
-#         else:
-#             image: bytes = DBTools.getImage(split_msg[1])
-#             return image
+    # elif split_msg[0] == "image": #return image corresponding to string node name
+    #     if split_msg.len != 2:
+    #         data['error'] = True
+    #         data['message'] = 'Expected exactly 1 image argument'
+    #         return json.dumps(data)
+    #     else:
+    #         image: bytes = DBTools.getImage(split_msg[1])
+    #         return image
 
 def string_directions(path):
     curr_node = (path[0]['x_coord'], path[0]['y_coord'])
@@ -105,9 +105,9 @@ def angle_between(vec1, vec2):
 #         print('\nServer shutdown from keyboard interrupt')
 
 
-with open('../test_cases/test_path.json', 'r') as json_file:
+with open('data/test_cases/test_path.json', 'r') as json_file:
     path = json.load(json_file)
     path2 = string_directions(path)
 
-with open('../test_cases/test_path_string.json', 'w') as writefile:
+with open('data/test_cases/test_path_string.json', 'w') as writefile:
     writefile.write(json.dumps(path2))
