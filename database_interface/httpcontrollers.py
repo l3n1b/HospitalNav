@@ -10,6 +10,7 @@ import os
 import pyorient
 from flask import Flask, request, jsonify, render_template, send_file
 
+print(os.getcwd())
 app = Flask(__name__, static_folder = './templates')
 
 filepath = './data/testmap_nodes_angles.json'
@@ -22,7 +23,7 @@ def home():
     login = "root"
     password = "rootpwd"
 
-    client = pyorient.OrientDB("localhost", 2424)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
@@ -34,7 +35,7 @@ def directions(start, end):
     login = "root"
     password = "rootpwd"
 
-    client = pyorient.OrientDB("localhost", 2424)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
@@ -52,7 +53,7 @@ def get_endpoints():
     login = "root"
     password = "rootpwd"
 
-    client = pyorient.OrientDB("localhost", 2424)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
@@ -73,4 +74,4 @@ def shortest_path(start, end):
   
     return jsonify(shortestPath(start, end))
 
-app.run(debug=True)
+app.run(host='0.0.0.0', port=36824, debug=True)

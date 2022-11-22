@@ -54,7 +54,7 @@ def loadDB(filepath):
     password = "rootpwd"
 
     #create client to connect to local orientdb docker container
-    client = pyorient.OrientDB("localhost", 2424)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
     session_id = client.connect(login, password)
 
     #remove old database and create new one
@@ -118,7 +118,7 @@ def shortestPath(locationA, locationB):
     password = "rootpwd"
     path = list()
 
-    client = pyorient.OrientDB("localhost", 2424)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
