@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Hospital GPS</a>
+          <a class="navbar-brand" href="http://154.3.42.178:36824">Hospital GPS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -31,7 +31,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for startpoint in startpoints %}
-                        <li><a class="dropdown-item" href="http://localhost:5000/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://154.3.42.178:36824/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -45,7 +45,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for endpoint in endpoints %}
-                        <li><a class="dropdown-item" href="http://localhost:5000/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://154.3.42.178:36824/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -62,16 +62,24 @@
         <div class="position-absolute bottom-0 end-0"></div>
       </div>
       <div class="container-fluid">
-          <h3>Directions</h3>
+          <h3 style="display:inline">Directions</h3>
+          {% if start != "NULL" %}
+            <h3 style="display:inline">for {{ start }}</h3>
+          {% endif %}
+          {% if end != "NULL" %}
+            <h3 style="display:inline">to {{ end }}</h3>
+          {% endif %}
+          
           <ol>
               {% for location in path %}
-                  <li><a href="#"></a>{{ location }}</li>
+                  <li id="{{ location.name }}" style="display:inline; border-width:3px; border-style:solid; border-color:#FF0000;">{{ location.name }}</li>
               {% endfor %}
           </ol>
       </div>
+	<!-- images we don't want for now
     <img src="https://static.wixstatic.com/media/22d860_01bdd4d2d051442e9587b36b76bb5fa3~mv2.jpg/v1/fill/w_600,h_405,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/chandler-first-floor.jpg" class="img-fluid mx-auto d-block" alt="...">
     <img src="https://img.freepik.com/free-photo/blurred-abstract-background-interior-view-looking-out-toward-empty-office-lobby-entrance-doors-glass-curtain-wall-with-frame_1339-6370.jpg?w=996&t=st=1665948644~exp=1665949244~hmac=be09c965a4642191e1ae612e16fb501d76aacf89968fc0249420c5644b802cdf" class="float-start rounded" width="200" height="200">
-    
+    -->
     
     <button onclick="prevImage()" type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button onclick="nextImage()" type="button" class="btn btn-primary btn-lg">NEXT</button>
@@ -84,7 +92,10 @@
 <script src="{{ url_for('static', filename='node_modules/uevent/browser.js') }}"></script>
 <script src="{{ url_for('static', filename='node_modules/photo-sphere-viewer/dist/photo-sphere-viewer.js') }}"></script>
 
-<!-- Definne the size of the viewer -->
+<!-- Make space to write in directions -->
+<p id="directions"></p>
+
+<!-- Define the size of the viewer -->
 <div id="viewer" style="width: 50vw; height: 50vh;"></div>
 
 
@@ -94,26 +105,55 @@
     var path = {{ jsonPath|safe }}
     
     let imName = "{{ start }}";
+	document.getElementById("directions").innerHTML = path[0].string_direction;
     let viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
         container: document.querySelector('#viewer'),
-        panorama: "http://localhost:5000/get_image/" + imName,
-        caption: imName,
+        panorama: "http://154.3.42.178:36824/get_image/" + path[0].name,
+        caption: path[0].name,
+		defaultLong: path[0].angle,
       });
       document.getElementById("viewer").style.display = "none"; // hide the display
       
+      document.getElementById("{{ start }}").style.fontWeight = "bold";
       function nextImage() {
         if (current+1 < path.length){
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "normal";
             current += 1;
-            viewer.setPanorama("http://localhost:5000/get_image/" + path[current]);
-            viewer.setOptions({caption: path[current]});
+			document.getElementById("directions").innerHTML = path[current].string_direction;
+            viewer.setPanorama("http://154.3.42.178:36824/get_image/" + path[current].name);
+            viewer.setOptions({
+				caption: path[current].name,
+			});
+			viewer.animate({
+				longitude: path[current].angle,
+				latitude: 0.0,
+				zoom: 0,
+				speed: '8rpm',
+			});
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "bold";
         }
       }
     
     function prevImage() {
       if (current-1 >= 0){
-          current -= 1;
-          viewer.setPanorama("http://localhost:5000/get_image/" + path[current]);
-          viewer.setOptions({caption: path[current]});
+            var element = document.getElementById(path[current].name);
+            element.style.fontWeight = "normal";
+            current -= 1;
+			document.getElementById("directions").innerHTML = path[current].string_direction;
+            viewer.setPanorama("http://154.3.42.178:36824/get_image/" + path[current].name);
+            viewer.setOptions({
+				caption: path[current].name,
+			});
+			viewer.animate({
+				longitude: path[current].angle,
+				latitude: 0.0,
+				zoom: 0,
+				speed: '8rpm',
+			});
+            element = document.getElementById(path[current].name);
+            element.style.fontWeight = "bold";
       }
     }
 </script>
