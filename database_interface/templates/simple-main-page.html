@@ -148,13 +148,13 @@
               document.getElementById("directions").innerHTML = "You are at the start. Go to " + path[1];
             }
             else {
-              document.getElementById("directions").innerHTML = "Go to " + path[current-1];
+              document.getElementById("directions").innerHTML = "Go to " + path[current+1];
             }
-            viewer.setPanorama("http://154.3.42.178:36824/get_image/" + path[current].name);
+            viewer.setPanorama("http://154.3.42.178:36824/get_image/" + path[current]);
             viewer.setOptions({
 				caption: path[current],
 			});
-            element = document.getElementById(path[current].name);
+            element = document.getElementById(path[current]);
             element.style.fontWeight = "bold";
       }
     }
