@@ -1,15 +1,25 @@
 name	is_startpoint	is_endpoint	x_coord	y_coord	building	map	connectList
-1st Floor Main Entrance	TRUE	FALSE	1	1	KYC	1	"Vascular Interventional Radiology, Orthopaedics, Physical_Occupational Therapy"
-Vascular Interventional Radiology	FALSE	TRUE	1	1	KYC	1	"1st Floor Main Entrance, Orthopaedics"
-Orthopaedics	FALSE	TRUE	1	1	KYC	1	"1st Floor Main Entrance, X-Ray_MRI, Vascular Interventional Radiology"
-Physical_Occupational Therapy	FALSE	TRUE	1	1	KYC	1	"1st Floor Main Entrance, Anesthesia Preop Services"
-X-Ray_MRI	FALSE	TRUE	1	1	KYC	1	"Orthopaedics, Kentucky Neuroscience Institute"
-Kentucky Neuroscience Institute	FALSE	TRUE	1	1	KYC	1	"Image Records Center, UHS Entrance"
-Anesthesia Preop Services	FALSE	TRUE	1	1	KYC	1	"Physical_Occupational Therapy, Pharmacy"
-Pharmacy	FALSE	TRUE	1	1	KYC	1	"South Limestone Entrance B, General Surgery"
-General Surgery	FALSE	TRUE	1	1	KYC	1	South Limestone Entrance A
-South Limestone Entrance A	TRUE	FALSE	1	1	KYC	1	"General Surgery, South Limestone Entrance B"
-South Limestone Entrance B	TRUE	FALSE	1	1	KYC	1	"South Limestone Entrance A, Pharmacy"
-Image Records Center	FALSE	TRUE	1	1	KYC	1	"Rose Street Entrance, UHS Entrance, Kentucky Neuroscience Institute"
-UHS Entrance	TRUE	FALSE	1	1	KYC	1	"Image Records Center, Kentucky Neuroscience Institute"
-Rose Street Entrance	TRUE	FALSE	1	1	KYC	1	Image Records Center
+1st Floor Main Entrance	TRUE	FALSE	250	98	KYC	1	"Hall4, Hall5"
+Vascular Interventional Radiology	FALSE	TRUE	289	86	KYC	1	"Orthopaedics, Hall4"
+Orthopaedics	FALSE	TRUE	307	94	KYC	1	"Hall3, Vascular Interventional Radiology"
+Physical_Occupational Therapy 	FALSE	TRUE	251	61	KYC	1	"Hall5, Hall6"
+X-Ray_MRI	FALSE	TRUE	395	90	KYC	1	"Orthopaedics, Hall2"
+Kentucky Neuroscience Institute	FALSE	TRUE	505	91	KYC	1	"Hall1, Image Records Center, Hall2"
+Anesthesia Preop Services	FALSE	TRUE	254	229	KYC	1	"Hall6, Pharmacy"
+Pharmacy	FALSE	TRUE	251	251	KYC	1	"South Limestone Entrance B, Anesthesia Preop Services, Hall7"
+General Surgery	FALSE	TRUE	132	260	KYC	1	"South Limestone Entrance A, Hall10"
+South Limestone Entrance A	TRUE	FALSE	132	275	KYC	1	General Surgery
+South Limestone Entrance B	TRUE	FALSE	250	275	KYC	1	Pharmacy
+Image Records Center	FALSE	TRUE	533	86	KYC	1	"Kentucky Neuroscience Institute, UHS Entrance"
+UHS Entrance	TRUE	FALSE	575	97	KYC	1	Image Records Center
+Rose Street Entrance	TRUE	FALSE	527	23	KYC	1	Hall1
+Hall1	FALSE	FALSE	513	54	KYC	1	"Rose Street Entrance, Kentucky Neuroscience Institute"
+Hall2	FALSE	FALSE	425	91	KYC	1	Kentucky Neuroscience Institute
+Hall3	FALSE	FALSE	358	90	KYC	1	"X-Ray_MRI, Orthopaedics"
+Hall4	FALSE	FALSE	264	88	KYC	1	"Vascular Interventional Radiology, 1st Floor Main Entrance"
+Hall5	FALSE	FALSE	250	125	KYC	1	"1st Floor Main Entrance, Physical_Occupational Therapy "
+Hall6	FALSE	FALSE	255	196	KYC	1	"Physical_Occupational Therapy, Anesthesia Preop Services"
+Hall7	FALSE	FALSE	218	255	KYC	1	"Pharmacy, Hall8"
+Hall8	FALSE	FALSE	199	254	KYC	1	"Hall7, Hall9"
+Hall9	FALSE	FALSE	174	256	KYC	1	"Hall8, Hall10"
+Hall10	FALSE	FALSE	143	255	KYC	1	"Hall9, General Surgery"
