@@ -2,8 +2,13 @@
 # encoding: utf-8
 import json
 import random
+
+from DBTools import simpleLoadDB
+from DBTools import simpleShortestPath
 from DBTools import loadDB
 from DBTools import shortestPath
+
+
 from DBTools import getEndpoints
 from DBTools import getStartpoints
 import os
@@ -13,9 +18,17 @@ from flask import Flask, request, jsonify, render_template, send_file
 print(os.getcwd())
 app = Flask(__name__, static_folder = './templates')
 
-filepath = './data/testmap_nodes_angles.json'
-loadDB(filepath)
-shortestPath("roada1_F1", "Upstairs_Window")
+# filepath = './data/testmap_nodes_angles.json'
+filepath = './data/KYCTestValues.json'
+simple = False
+
+if filepath == './data/KYCTestValues.json':
+    simple = True
+
+if simple:
+    simpleLoadDB(filepath)
+else:
+    loadDB(filepath)
 
 @app.route('/')
 def home():
@@ -27,7 +40,22 @@ def home():
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
-    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start='NULL', end='NULL', path=[], jsonPath=json.dumps([]))
+    if simple:
+        return render_template('simple-main-page.html', 
+                            endpoints=getEndpoints(client), 
+                            startpoints=getStartpoints(client), 
+                            start='NULL', 
+                            end='NULL', 
+                            path=[], 
+                            jsonPath=json.dumps([]))
+    else:
+        return render_template('main-page.html', 
+                            endpoints=getEndpoints(client), 
+                            startpoints=getStartpoints(client), 
+                            start='NULL', 
+                            end='NULL', 
+                            path=[], 
+                            jsonPath=json.dumps([]))
     
 @app.route('/<string:start>&<string:end>', methods=['GET'])
 def directions(start, end):
@@ -43,9 +71,27 @@ def directions(start, end):
     path = []
     
     if (start != 'NULL') and (end != 'NULL'):
-        path=shortestPath(start, end)
+        if simple:
+            path = simpleShortestPath(start, end)
+        else:
+            path = shortestPath(start, end)
     
-    return render_template('main-page.html', endpoints=getEndpoints(client), startpoints=getStartpoints(client), start=start, end=end, path=path, jsonPath=json.dumps(path))
+    if simple:
+        return render_template('simple-main-page.html', 
+                            endpoints=getEndpoints(client), 
+                            startpoints=getStartpoints(client), 
+                            start=start, 
+                            end=end, 
+                            path=path, 
+                            jsonPath=json.dumps(path))
+    else:
+        return render_template('main-page.html', 
+                            endpoints=getEndpoints(client), 
+                            startpoints=getStartpoints(client), 
+                            start=start, 
+                            end=end, 
+                            path=path, 
+                            jsonPath=json.dumps(path))
 
 @app.route('/get_endpoints', methods=['GET'])
 def get_endpoints():
@@ -61,11 +107,13 @@ def get_endpoints():
     
 @app.route('/get_image/<string:name>', methods=['GET'])
 def get_image(name):
-    return send_file('../data/images/' + name + '.jpg', mimetype='image/gif')
+    if simple:
+        return send_file('../data/images/' + name + '.JPG', mimetype='image/gif')
+    else:
+        return send_file('../data/images/' + name + '.jpg', mimetype='image/gif')
 
 @app.route('/reset', methods=['GET'])
 def reset():
-    filepath = './data/KYCTestValues.json'
     loadDB(filepath)
     return jsonify("reset")
 

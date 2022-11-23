@@ -44,6 +44,89 @@ def getStartpoints(client):
 #    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")
 #    return photosphere[0].__getattr__('photosphere')
 
+def simpleShortestPath(locationA, locationB):
+
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+    path = list()
+
+    client = pyorient.OrientDB("172.17.0.2", 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+
+    #get the RID of the two locations
+    locationAID = getrid(client,locationA)
+    locationBID = getrid(client,locationB)
+
+    #determine the shortest path
+    pathlist = client.command("SELECT shortestPath(" + locationAID + ", " + locationBID +")")
+    #print(pathlist[0].__getattr__('shortestPath'))
+
+    #get distance
+    distance = len(pathlist[0].__getattr__('shortestPath'))
+
+    for node in pathlist[0].__getattr__('shortestPath'):
+#        print(node)
+        path.append(getname(client, node))
+
+    client.close()
+
+    return path
+
+def simpleLoadDB(filepath):
+        #database name
+    dbname = "locations"
+    #database login is root by default
+    login = "root"
+    #database password, set by docker param
+    password = "rootpwd"
+
+    #create client to connect to local orientdb docker container
+    client = pyorient.OrientDB("172.17.0.2", 2424)
+    session_id = client.connect(login, password)
+
+    #remove old database and create new one
+    reset_db(client,dbname)
+
+    #open the database we are interested in
+    client.db_open(dbname, login, password)
+
+    client.command("CREATE CLASS Location EXTENDS V")
+    client.command("CREATE PROPERTY Location.name String")
+    client.command("CREATE PROPERTY Location.is_startpoint Boolean")
+    client.command("CREATE PROPERTY Location.is_endpoint Boolean")
+    client.command("CREATE PROPERTY Location.x_coord Double")
+    client.command("CREATE PROPERTY Location.y_coord Double")
+    client.command("CREATE PROPERTY Location.building String")
+    client.command("CREATE PROPERTY Location.map String")
+    #client.command("CREATE PROPERTY Location.metric Integer")
+
+    #open and parse local json file
+    with open(filepath) as f:
+        data = json.load(f)
+
+    #loop through each key in the json database and create a new vertex, V with the id in the database
+    for key in data:
+        client.command("CREATE VERTEX Location SET name = '" + key
+        + "', is_startpoint = '" + str(data[key]["is_startpoint"])
+        + "', is_endpoint = " + str(data[key]["is_endpoint"])
+        + ", x_coord = " + str(data[key]["x_coord"])
+        + ", y_coord = " + str(data[key]["y_coord"])
+        + ", building = " + data[key]["building"]
+        + ", map = " + data[key]["map"])
+
+    #loop through each key creating edges from location to location
+    for key in data:
+        location1ID = str(getrid(client,key))
+        connections = data.get(key)["connectList"].split(', ')
+        for location2 in connections:
+            location2ID = str(getrid(client,location2))
+            client.command("CREATE EDGE FROM " + location1ID + " TO " + location2ID)
+
+    client.close()
+
 def loadDB(filepath):
 
     #database name
