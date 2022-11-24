@@ -22,8 +22,8 @@ app = Flask(__name__, static_folder = './templates')
 filepath = './data/KYCTestValues.json'
 simple = False
 
-if filepath == './data/KYCTestValues.json':
-    simple = True
+# if filepath == './data/KYCTestValues.json':
+#     simple = True
 
 if simple:
     simpleLoadDB(filepath)
@@ -110,7 +110,7 @@ def get_image(name):
     if simple:
         return send_file('../data/images/' + name + '.JPG', mimetype='image/gif')
     else:
-        return send_file('../data/images/' + name + '.jpg', mimetype='image/gif')
+        return send_file('../data/images/' + name + '.JPG', mimetype='image/gif')
 
 @app.route('/reset', methods=['GET'])
 def reset():
