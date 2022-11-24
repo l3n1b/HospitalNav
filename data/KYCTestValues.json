@@ -57,7 +57,7 @@
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
       "x_coord":251,
-      "y_coord":61,
+      "y_coord":161,
       "building":"KYC",
       "map":"1",
       "connectList":[
@@ -80,11 +80,11 @@
       "map":"1",
       "connectList":[
          {
-            "name":"Orthopaedics",
+            "name":"Hall2",
             "angle":0.0
          },
          {
-            "name":"Hall2",
+            "name":"Hall3",
             "angle":0.0
          }
       ]
@@ -271,6 +271,10 @@
       "connectList":[
          {
             "name":"Kentucky Neuroscience Institute",
+            "angle":0.0
+         },
+         {
+            "name":"X-Ray_MRI",
             "angle":0.0
          }
       ]
