@@ -40,6 +40,13 @@ def getStartpoints(client):
     startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
     return [startpoint.__getattr__('name') for startpoint in startpoints]
 
+def getMetric(client, name):
+    metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
+    return metric[0].__getattr__('metric')
+
+def incrementMetric(client, name):
+    client.command("UPDATE Location INCREMENT metric = 1 WHERE name = '" + str(name) + "'")
+
 #def getphoto(client, name):
 #    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")
 #    return photosphere[0].__getattr__('photosphere')
@@ -101,7 +108,7 @@ def simpleLoadDB(filepath):
     client.command("CREATE PROPERTY Location.y_coord Double")
     client.command("CREATE PROPERTY Location.building String")
     client.command("CREATE PROPERTY Location.map String")
-    #client.command("CREATE PROPERTY Location.metric Integer")
+    # client.command("CREATE PROPERTY Location.metric Integer")
 
     #open and parse local json file
     with open(filepath) as f:
@@ -155,7 +162,7 @@ def loadDB(filepath):
     client.command("CREATE PROPERTY Location.building String")
     client.command("CREATE PROPERTY Location.map String")
     client.command("CREATE PROPERTY Location.floor String")
-    #client.command("CREATE PROPERTY Location.metric Integer")
+    client.command("CREATE PROPERTY Location.metric Integer")
 
     client.command("CREATE CLASS Connection EXTENDS E")
     client.command("CREATE PROPERTY Connection.angle Double")
@@ -182,7 +189,8 @@ def loadDB(filepath):
         + ", y_coord = " + str(data[key]["y_coord"])
         + ", building = " + data[key]["building"]
         + ", floor = " + data[key]["floor"]
-        + ", map = " + data[key]["map"])
+        + ", map = " + data[key]["map"]
+        + ", metric = 0")
 
     #loop through each key creating edges from location to location
     for key in data:
