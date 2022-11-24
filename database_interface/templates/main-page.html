@@ -116,7 +116,7 @@
     // If we only have start
     if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
       document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              "You are currentlyat " + "{{ start }}" + ". Please choose a Destination from the menu." 
+              "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
               "</mark></ins></strong>";
       var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
         container: document.querySelector('#viewer'),
