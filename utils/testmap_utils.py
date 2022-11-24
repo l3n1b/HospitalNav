@@ -4,6 +4,9 @@ import json
 import numpy as np
 from PIL import Image
 from PIL import ImageDraw
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import threading
 
 #want edges defined by both name of connected node and angle between from perspective of camera
 #since test_map was made with constant camera orientations, we can use the 2D vector to find this
@@ -90,7 +93,7 @@ def display_map(path, name, node_r:int = 10, scale=6):
     for node in nodes:
         max_coords[0] = max(max_coords[0], nodes[node]['x_coord'])
         max_coords[1] = max(max_coords[1], nodes[node]['y_coord'])
-    blank_map = Image.new("RGB", [scale*(max_coords[0])+2*node_r, scale*(max_coords[1])+2*node_r], (255, 255, 255))
+    blank_map = Image.new("RGB", [scale*(max_coords[0])+5*node_r, scale*(max_coords[1])+5*node_r], (255, 255, 255))
     map_draw = ImageDraw.Draw(blank_map)
     for node in nodes:
         x = nodes[node]['x_coord']
@@ -109,4 +112,25 @@ def display_map(path, name, node_r:int = 10, scale=6):
 
 
     
-display_map('data/', 'KYCTestValues', 8, 3)
+#display_map('data/', 'KYCTestValues', 8, 3)
+
+
+def onclick(event):
+    x = event.xdata
+    print(to_rad(x))
+
+def to_rad(pixel, w=5504):
+    return (pixel/w - .5) * 2*np.pi
+
+def find_angles(path, name):
+    with open(path + name + '.json', 'r') as file:
+        nodes = json.load(file)
+    for node in nodes:
+        img = mpimg.imread('data/images/' + node + '.jpg')
+        imgplot = plt.imshow(img)
+        cid = imgplot.figure.canvas.mpl_connect('button_press_event', onclick)
+        plt.title(node)
+        plt.show()
+
+find_angles('data/', 'KYCTestValues')
+        

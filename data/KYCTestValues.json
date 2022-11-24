@@ -5,15 +5,16 @@
       "x_coord":250,
       "y_coord":98,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall4",
-            "angle":0.0
+            "angle":-0.8746
          },
          {
             "name":"Hall5",
-            "angle":0.0
+            "angle":0.181
          }
       ]
    },
@@ -23,15 +24,16 @@
       "x_coord":289,
       "y_coord":86,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Orthopaedics",
-            "angle":0.0
+            "angle":2.267
          },
          {
             "name":"Hall4",
-            "angle":0.0
+            "angle":-0.8155
          }
       ]
    },
@@ -41,15 +43,16 @@
       "x_coord":307,
       "y_coord":94,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall3",
-            "angle":0.0
+            "angle":-2.513
          },
          {
             "name":"Vascular Interventional Radiology",
-            "angle":0.0
+            "angle":0.683
          }
       ]
    },
@@ -59,15 +62,16 @@
       "x_coord":251,
       "y_coord":161,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall5",
-            "angle":0.0
+            "angle":-2.289
          },
          {
             "name":"Hall6",
-            "angle":0.0
+            "angle":0.9157
          }
       ]
    },
@@ -77,15 +81,16 @@
       "x_coord":395,
       "y_coord":90,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall2",
-            "angle":0.0
+            "angle":-1.132
          },
          {
             "name":"Hall3",
-            "angle":0.0
+            "angle":2.0
          }
       ]
    },
@@ -95,19 +100,20 @@
       "x_coord":505,
       "y_coord":91,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall1",
-            "angle":0.0
+            "angle":-2.855
          },
          {
             "name":"Image Records Center",
-            "angle":0.0
+            "angle":-1.335
          },
          {
             "name":"Hall2",
-            "angle":0.0
+            "angle":1.895
          }
       ]
    },
@@ -117,15 +123,16 @@
       "x_coord":254,
       "y_coord":229,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall6",
-            "angle":0.0
+            "angle":-1.951
          },
          {
             "name":"Pharmacy",
-            "angle":0.0
+            "angle":1.232
          }
       ]
    },
@@ -135,19 +142,20 @@
       "x_coord":251,
       "y_coord":251,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"South Limestone Entrance B",
-            "angle":0.0
+            "angle":1.55
          },
          {
             "name":"Anesthesia Preop Services",
-            "angle":0.0
+            "angle":-1.66
          },
          {
             "name":"Hall7",
-            "angle":0.0
+            "angle":2.568
          }
       ]
    },
@@ -157,15 +165,16 @@
       "x_coord":132,
       "y_coord":260,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"South Limestone Entrance A",
-            "angle":0.0
+            "angle":-1.242
          },
          {
             "name":"Hall10",
-            "angle":0.0
+            "angle":1.667
          }
       ]
    },
@@ -175,11 +184,12 @@
       "x_coord":132,
       "y_coord":275,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"General Surgery",
-            "angle":0.0
+            "angle":0.0628
          }
       ]
    },
@@ -189,11 +199,12 @@
       "x_coord":250,
       "y_coord":275,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Pharmacy",
-            "angle":0.0
+            "angle":-2.859
          }
       ]
    },
@@ -203,15 +214,16 @@
       "x_coord":533,
       "y_coord":86,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Kentucky Neuroscience Institute",
-            "angle":0.0
+            "angle":-1.191
          },
          {
             "name":"UHS Entrance",
-            "angle":0.0
+            "angle":1.93
          }
       ]
    },
@@ -221,11 +233,12 @@
       "x_coord":575,
       "y_coord":97,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Image Records Center",
-            "angle":0.0
+            "angle":0.0459
          }
       ]
    },
@@ -235,11 +248,12 @@
       "x_coord":527,
       "y_coord":23,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall1",
-            "angle":0.0
+            "angle":-0.364
          }
       ]
    },
@@ -249,15 +263,16 @@
       "x_coord":513,
       "y_coord":54,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Rose Street Entrance",
-            "angle":0.0
+            "angle":3.107
          },
          {
             "name":"Kentucky Neuroscience Institute",
-            "angle":0.0
+            "angle":-0.098
          }
       ]
    },
@@ -267,15 +282,16 @@
       "x_coord":425,
       "y_coord":91,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Kentucky Neuroscience Institute",
-            "angle":0.0
+            "angle":-1.668
          },
          {
             "name":"X-Ray_MRI",
-            "angle":0.0
+            "angle":1.49
          }
       ]
    },
@@ -285,15 +301,16 @@
       "x_coord":358,
       "y_coord":90,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"X-Ray_MRI",
-            "angle":0.0
+            "angle":3.078
          },
          {
             "name":"Orthopaedics",
-            "angle":0.0
+            "angle":-.089
          }
       ]
    },
@@ -303,15 +320,16 @@
       "x_coord":264,
       "y_coord":88,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Vascular Interventional Radiology",
-            "angle":0.0
+            "angle":3.0
          },
          {
             "name":"1st Floor Main Entrance",
-            "angle":0.0
+            "angle":0.063
          }
       ]
    },
@@ -321,15 +339,16 @@
       "x_coord":250,
       "y_coord":125,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"1st Floor Main Entrance",
-            "angle":0.0
+            "angle":3.11
          },
          {
             "name":"Physical_Occupational Therapy",
-            "angle":0.0
+            "angle":-0.05
          }
       ]
    },
@@ -339,15 +358,16 @@
       "x_coord":255,
       "y_coord":196,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Physical_Occupational Therapy",
-            "angle":0.0
+            "angle":1.587
          },
          {
             "name":"Anesthesia Preop Services",
-            "angle":0.0
+            "angle":-1.554
          }
       ]
    },
@@ -357,15 +377,16 @@
       "x_coord":218,
       "y_coord":255,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Pharmacy",
-            "angle":0.0
+            "angle":3.111
          },
          {
             "name":"Hall8",
-            "angle":0.0
+            "angle":0.012
          }
       ]
    },
@@ -375,15 +396,16 @@
       "x_coord":199,
       "y_coord":254,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall7",
-            "angle":0.0
+            "angle":3.124
          },
          {
             "name":"Hall9",
-            "angle":0.0
+            "angle":0.029
          }
       ]
    },
@@ -393,15 +415,16 @@
       "x_coord":174,
       "y_coord":256,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall8",
-            "angle":0.0
+            "angle":3.1
          },
          {
             "name":"Hall10",
-            "angle":0.0
+            "angle":0.037
          }
       ]
    },
@@ -411,15 +434,16 @@
       "x_coord":143,
       "y_coord":255,
       "building":"KYC",
+      "floor":"1",
       "map":"1",
       "connectList":[
          {
             "name":"Hall9",
-            "angle":0.0
+            "angle":2.942
          },
          {
             "name":"General Surgery",
-            "angle":0.0
+            "angle":-1.107
          }
       ]
    }
