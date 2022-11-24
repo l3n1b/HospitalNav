@@ -25,26 +25,23 @@ Below is what you need to get HospitalNav running.
    docker run -d --name orientdb -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=rootpwd orientdb:2.2
    ```
    
-4. Install requirements
+4. Build Flask app docker image
    ```sh
-   pip3 install -r requirements.txt
+   docker image build -t flask_docker .
    ```
-
-5. Run Flask app
-   ```sh
-   python3 database_interface/httpcontrollers.py
-   ```
-
-6. Check database
-   ```sh
-   http://localhost:2480/
-   ```
-   User: root
    
-   Password: rootpwd
-   
-
-7. Check website
+5. Run Flask app docker image
    ```sh
-   http://localhost:5000/
+   docker run -p 36824:36824 -d flask_docker
+   ```
+   
+6. Go to website
+   ```sh
+   http://localhost:36824/
+   ```
+   
+   or officially
+   
+   ```sh
+   http://ukhealthgps.servehttp.com:36824/
    ```
