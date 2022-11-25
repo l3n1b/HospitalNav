@@ -6,7 +6,7 @@ import path_tools
 import os
 from PIL import Image
 
-ip = "localhost"
+ip = "172.17.0.2"
 
 
 def reset_db(client, name):
@@ -45,9 +45,16 @@ def getStartpoints(client):
     startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
     return [startpoint.__getattr__('name') for startpoint in startpoints]
 
-# def getMetric(client, name):
-#     metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
-#     return metric[0].__getattr__('metric')
+def getMetric(client, name):
+    metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
+    return metric[0].__getattr__('metric')
+
+def getMetrics(client):
+    metrics = client.query("SELECT name, metric FROM Location ORDER BY metric DESC")
+    dictionary = {}
+    for metric in metrics:
+        dictionary[metric.__getattr__('name')] = metric.__getattr__('metric')
+    return dictionary
 
 def incrementMetric(client, name):
     client.command("UPDATE Location INCREMENT metric = 1 WHERE name = '" + str(name) + "'")
@@ -277,7 +284,7 @@ def next_nodes(path, segments=3, line_path='data/images/lines/', unit_to_ft=1, c
             name += '_' + connections[i][j]['name']
         name += '.png'
         if not os.path.exists(line_path+name):        
-            with Image.open('data/images/' + path[i]['name'] + '.jpg') as img:
+            with Image.open('data/images/' + path[i]['name'] + '.JPG') as img:
                 w = img.width
                 h = img.height
             path_tools.draw_line(connections[i], line_path, w, h, cam_height/unit_to_ft)
