@@ -92,7 +92,7 @@
     <button onclick="prevImage()" type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button onclick="nextImage()" type="button" class="btn btn-primary btn-lg">NEXT</button>
       
-    <button onclick="toggleViewer()" id=dim_button class="btn btn-success btn-lg" >3D-View</button>
+    <!-- <button onclick="toggleViewer()" id=dim_button class="btn btn-success btn-lg" >3D-View</button> -->
 
 
 <!-- Load in the photosphere dependencies -->
@@ -112,35 +112,41 @@
     var current = 0;
     var path = {{ jsonPath|safe }}
     
-    let imName = "{{ start }}";
+    // If we do not have a start
+    if ("{{ start }}" == "NULL") {
+      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+              "Please choose an Entrance from the menu." 
+              "</mark></ins></strong>";
+    }
     // If we only have start
-    if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
-      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
-              "</mark></ins></strong>";
-      var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
-        container: document.querySelector('#viewer'),
-         panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + "{{ start }}",
-          caption: "{{ start }}",
-		  defaultLong: 0.0,
-      });
-    }
     else {
-      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              path[0].string_direction + 
-              "</mark></ins></strong>";
-      var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
-        container: document.querySelector('#viewer'),
-         panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + path[0].name,
-		 overlay: "http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[0].line_name,
-          caption: path[0].name,
-		  defaultLong: path[0].angle,
-      });
-    }
-
-      document.getElementById("viewer").style.display = "none"; // hide the display
-      
+      if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+                "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
+                "</mark></ins></strong>";
+        var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
+          container: document.querySelector('#viewer'),
+          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + "{{ start }}",
+            caption: "{{ start }}",
+        defaultLong: 0.0,
+        });
+      }
+      else {
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+                path[0].string_direction + 
+                "</mark></ins></strong>";
+        var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
+          container: document.querySelector('#viewer'),
+          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + path[0].name,
+      overlay: "http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[0].line_name,
+            caption: path[0].name,
+        defaultLong: path[0].angle,
+        });
+      }
+      document.getElementById("viewer").style.display = "block"; // show the display
       document.getElementById("{{ start }}").style.fontWeight = "bold";
+    }
+    
       function nextImage() {
         if (current+1 < path.length){
             var element = document.getElementById(path[current].name);
@@ -239,18 +245,5 @@
     }
 }
 </script>
-
-<!--<script>-->
-<!--  function nextImage() {-->
-<!--    var t = document.getElementById("dim_button")-->
-<!--    if (t.innerHTML == "2D-View") // if the website is in 3D-Mode-->
-<!--    {-->
-<!--       // use the api to obtain the next image from server-->
-<!--      viewer.setPanorama('https://www.openfootage.net/Openfootage/Vorschau/00309_Snow/00309_Snow_Preview_360_Panorama.jpg'); // insert the image into the photoviewer-->
-<!--      // store the last image in a buffer-->
-<!--      console.log("Ran Next Image");-->
-<!--    }-->
-<!--  }-->
-<!--</script>-->
 </body>
 </html>
