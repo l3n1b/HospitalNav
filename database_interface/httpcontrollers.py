@@ -9,9 +9,11 @@ from DBTools import loadDB
 from DBTools import shortestPath
 
 from DBTools import incrementMetric
-#from DBTools import getMetric
+from DBTools import getMetric
 from DBTools import getEndpoints
 from DBTools import getStartpoints
+from DBTools import getBuildings
+from DBTools import getQuery
 import os
 import pyorient
 from flask import Flask, request, jsonify, render_template, send_file
@@ -130,16 +132,41 @@ def reset():
 def shortest_path(start, end):
     return jsonify(shortestPath(start, end))
 
-# @app.route('/get_metric/<string:name>', methods = ['GET'])
-# def get_metric(name):
-#     dbname = "locations"
-#     login = "root"
-#     password = "rootpwd"
+@app.route('/get_metric/<string:name>', methods = ['GET'])
+def get_metric(name):
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
 
-#     client = pyorient.OrientDB("172.17.0.2", 2424)
-#     session_id = client.connect(login, password)
+    client = pyorient.OrientDB("172.17.0.2", 2424)
+    session_id = client.connect(login, password)
 
-#     client.db_open(dbname, login, password)
-#     return jsonify(getMetric(client, name))
+    client.db_open(dbname, login, password)
+    return jsonify(getMetric(client, name))
+
+@app.route('/get_buildings', methods = ['GET'])
+def get_buildings():
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+
+    client = pyorient.OrientDB("172.17.0.2", 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+    return jsonify(getBuildings(client))
+
+#doesn't sanitize input. don't use in uncontrolled environment
+@app.route('/get_query', methods=['GET'])
+def get_query(name, building, floor, is_startpoint, is_endpoint):
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+
+    client = pyorient.OrientDB("172.17.0.2", 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+    return jsonify(getQuery(client, name, building, floor, is_startpoint, is_endpoint))
 
 app.run(host=ip, port=36824, debug=True)
