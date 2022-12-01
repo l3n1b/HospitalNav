@@ -246,7 +246,7 @@ def shortestPath(locationA, locationB):
     client.close()
 
     path_string = string_directions(path)
-    path_string = next_nodes(path_string, 3, 'data/images/lines/', 0.6333, 5)
+    path_string = next_nodes(path_string, 3, 'data/images/lines/', 1, 5)
 
     return path_string
 
