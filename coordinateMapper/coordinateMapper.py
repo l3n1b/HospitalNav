@@ -11,6 +11,9 @@
 # Origin(x = 0, y = 0) will be top left corner.
 
 import cv2
+
+# Edit this to change the image you would like to input
+path = 'KYCmap1.jpg'
   
 # Capture coordinates upon each mouse click
 # Left or right mouse click is supported
@@ -32,7 +35,7 @@ def clickEvent(event, x, y, flags, params):
 if __name__=="__main__":
  
     # Read source image
-    img = cv2.imread('map1.jpg', 1)
+    img = cv2.imread(path, 1)
  
     # Display image
     cv2.imshow('image', img)
