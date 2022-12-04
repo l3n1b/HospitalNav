@@ -27,7 +27,7 @@ Below is what you need to get HospitalNav running.
 
 4. Edit the code to run on your machine with docker:
 
-   In ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with the IP address of your OrientDB container.
+   In ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with the IP address of your OrientDB container or with localhost.
    
 	This can be found by running:
 
