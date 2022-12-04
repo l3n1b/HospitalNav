@@ -47,7 +47,7 @@ Below is what you need to get HospitalNav running.
 	
 	Next, in ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with localhost
 	
-	Next, in ```database_interface/templates/main-page.html```, replace ```ukhealthgps.servehttp.com``` with localhost
+	Next, in ```database_interface/templates/main-page.html```, find and replace ```ukhealthgps.servehttp.com``` with localhost
 	
 	Next, run ```python3 database_interface/httpcontrollers.py```
 
