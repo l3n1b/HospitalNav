@@ -27,7 +27,7 @@ Below is what you need to get HospitalNav running.
 
 4. Edit the code to run on your machine with docker:
 
-   In ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with the IP address of your OrientDB container or with localhost.
+   In ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with the IP address of your OrientDB container.
    
 	This can be found by running:
 
@@ -39,26 +39,28 @@ Below is what you need to get HospitalNav running.
    
 		Find and replace ukhealthgps.servehttp.com with localhost.
 		
-	If you want to run the code without docker, 
+5. If you want to run the code without docker, 
 	
 	First, run ```pip3 install -r requirements.txt``` (you might have to change some of the versions in requirements.txt)
 	
 	Next, make a folder ```lines``` in data/images
 	
+	Next, in ```database_interface/DBTools.py```, replace the IP in ```ip = "172.17.0.2"``` with localhost
+	
 	Next, run ```python3 database_interface/httpcontrollers.py```
 
 
-5. Build Flask app docker image
+6. Build Flask app docker image
    ```sh
    docker image build -t flask_docker .
    ```
    
-6. Run Flask app docker image
+7. Run Flask app docker image
    ```sh
    docker run -p 36824:36824 -d flask_docker
    ```
    
-7. Go to website
+8. Go to website
    ```sh
    http://localhost:36824/
    ```
