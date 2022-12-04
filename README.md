@@ -43,6 +43,8 @@ Below is what you need to get HospitalNav running.
 	
 	First, run ```pip3 install -r requirements.txt``` (you might have to change some of the versions in requirements.txt)
 	
+	Next, make a folder ```lines``` in data/images
+	
 	Next, run ```python3 database_interface/httpcontrollers.py```
 
 
