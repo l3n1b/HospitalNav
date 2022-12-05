@@ -9,6 +9,7 @@
 # calculate (x,y) coordinates for each node.
 #
 # Origin(x = 0, y = 0) will be top left corner.
+# Written by Sid Yadav
 
 import cv2
 

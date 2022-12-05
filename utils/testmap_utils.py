@@ -1,4 +1,4 @@
-#one-off functions where we save results. performance probably doesn't matter
+#various one-off functions for testing and data-entry utilities
 #trevor roussel
 import json
 import numpy as np
@@ -42,6 +42,7 @@ def write_angles(path, name):
     with open(path+name2, 'w') as file:
         file.write(json.dumps(nodes))
 
+#save new copies of png images as jpeg
 def rewrite_images(nodes_path, image_path):
     with open(nodes_path, 'r') as file:
         nodes = json.load(file)
@@ -51,21 +52,9 @@ def rewrite_images(nodes_path, image_path):
         im2 = image.convert('RGB')
         im2.save(image_path+'images_test2/'+node+'.jpg')
     print('Done')
-
 #rewrite_images('data/testmap_nodes_angles.json', 'data/')
 
-# def draw_connections(nodes_path, image_path, length=3):
-#     with open(nodes_path, 'r') as file:
-#         nodes = json.load(file)
-#     print(nodes)
-#     for key in nodes:
-#         in_path = [key]
-#         for i in range()
-#         for edge in nodes[key]['connectList']:
-
-
-# draw_connections('data/testmap_nodes_angles.json', 'data/images/lines')
-
+#rewrite angles saved as single string into json-formatted list of objects with angle properties
 def fix_connections(path, name):
     with open(path + name + '.json', 'r') as file:
         nodes = json.load(file)
@@ -84,7 +73,7 @@ def fix_connections(path, name):
 
 #fix_connections('data/', 'KYCTestValues')
 
-#draw nodes on map
+#draw nodes on a map for visualization purposes
 def display_map(path, name, node_r:int = 10, scale=6):
     line_w = int(node_r/4)
     with open(path + name + '.json', 'r') as file:
@@ -113,13 +102,19 @@ def display_map(path, name, node_r:int = 10, scale=6):
 #display_map('data/', 'KYCTestValues', 8, 3)
 
 
+#helper function for find_angles function
 def onclick(event):
     x = event.xdata
     print(to_rad(x))
 
+#helper function for find_angles function. need to set width to proper width of images,
+#or improve the method by finding a way to pass this information automatically
 def to_rad(pixel, w=5504):
     return (pixel/w - .5) * 2*np.pi
 
+#will proceed through each node in path and open their photosphere. clicking
+#a position in the image will print the "angle" corresponding to the pixel
+#x-coordinate of the click. range from -pi to pi.
 def find_angles(path, name):
     with open(path + name + '.json', 'r') as file:
         nodes = json.load(file)

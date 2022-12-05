@@ -160,16 +160,19 @@
 			});
 			viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name);
 			//different angles of cameras can cause jarring turns in animation, this should fix:
+			//get the angle facing opposite of the angle pointing back to the last node
 			start_angle = path[current].angle_back;
 			if (start_angle < 0.0) {
 				start_angle = start_angle + 3.14159;
 			} else {
 				start_angle = start_angle - 3.14159;
 			}
+			//instantly rotate viewer to that angle
 			viewer.rotate({
 				longitude: start_angle,
 				latitude: 0.0,
 			});
+			//smoothly animate viewer to angle pointing to the next node
 			viewer.animate({
 				longitude: path[current].angle,
 				latitude: 0.0,

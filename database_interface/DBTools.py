@@ -8,7 +8,6 @@ from PIL import Image
 
 ip = "172.17.0.2"
 
-
 def reset_db(client, name):
 
    # Remove Old Database
@@ -260,16 +259,22 @@ def string_directions(path):
             path[i]['string_direction'] = f'Take the elevator to floor {next_floor}'
             #next iteration, first vector will be zero vector. will always display direction as straight, avoids unintended behavior with different coords on diff maps
         else:
+            #get length of path to next node
+            distance = path_tools.vec_dist((path[i+1]["x_coord"]-path[i]["x_coord"],
+                path[i+1]["y_coord"]-path[i]["y_coord"]))
+            #get 5 foot approximation
+            distance = int(distance/5) * 5
+
             #find angle of out angle from perspective of back angle
             angle = path[i]["angle"] - path[i]["angle_back"] + np.pi
             angle = path_tools.reg_angle(angle) #set to range -pi, pi
             #3pi/4 and pi/4 constants are precomputed because python is iffy about folding constants
             if (angle > -2.3562 and angle < -0.7854):
-                path[i]['string_direction'] = 'Turn left'
+                path[i]['string_direction'] = 'Turn left then continue for ' + str(distance) + ' feet'
             elif (angle < 0.7854):
-                path[i]['string_direction'] = 'Head straight'
+                path[i]['string_direction'] = 'Head straight for ' + str(distance) + ' feet'
             elif (angle < 2.3562):
-                path[i]['string_direction'] = 'Turn right'
+                path[i]['string_direction'] = 'Turn right then continue for ' + str(distance) + ' feet'
             else:
                 path[i]['string_direction'] = 'Turn backwards' #probably an error case but maybe there are weird directions
     path[-1]['string_direction'] = 'You\'ve arrived!'
