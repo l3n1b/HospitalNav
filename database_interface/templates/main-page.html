@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="initial-scale=1, width=device-width">
     <meta charset="UTF-8">
     <title><img src="https://ukhealthcare.uky.edu/themes/custom/ukhc/images/ukhc-logo-small.png" ></img>HOSPITAL GPS</title>
     <link rel="stylesheet">
@@ -33,13 +34,14 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
         <div class="container-fluid">
-          <img class="logo-image" src="https://ukhealthcare.uky.edu/themes/custom/ukhc/images/ukhc-logo-small.png"></img>
-
-          <a class="navbar-brand" href="http://localhost:36824">GPS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="http://ukhealthgps.servehttp.com:36824">
+            <img class="logo-image" src="https://ukhealthcare.uky.edu/themes/custom/ukhc/images/ukhc-logo-small.png" alt="">
+            GPS
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+          <div class="collapse show navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,21 +49,17 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for startpoint in startpoints %}
-                        <li><a class="dropdown-item" href="http://localhost:36824/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://ukhealthgps.servehttp.com:36824/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
-            </ul>
-          </div>
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Destinations
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for endpoint in endpoints %}
-                        <li><a class="dropdown-item" href="http://localhost:36824/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://ukhealthgps.servehttp.com:36824/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -112,35 +110,41 @@
     var current = 0;
     var path = {{ jsonPath|safe }}
     
-    let imName = "{{ start }}";
+    // If we do not have a start
+    if ("{{ start }}" == "NULL") {
+      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+              "Please choose an Entrance from the menu." 
+              "</mark></ins></strong>";
+    }
     // If we only have start
-    if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
-      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
-              "</mark></ins></strong>";
-      var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
-        container: document.querySelector('#viewer'),
-         panorama: "http://localhost:36824/get_image/" + "{{ start }}",
-          caption: "{{ start }}",
-		  defaultLong: 0.0,
-      });
-    }
     else {
-      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              path[0].string_direction + 
-              "</mark></ins></strong>";
-      var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
-        container: document.querySelector('#viewer'),
-         panorama: "http://localhost:36824/get_image/" + path[0].name,
-		 overlay: "http://localhost:36824/get_line_image/" + path[0].line_name,
-          caption: path[0].name,
-		  defaultLong: path[0].angle,
-      });
-    }
-
-      document.getElementById("viewer").style.display = "none"; // hide the display
-      
+      if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+                "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
+                "</mark></ins></strong>";
+        var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
+          container: document.querySelector('#viewer'),
+          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + "{{ start }}",
+            caption: "{{ start }}",
+        defaultLong: 0.0,
+        });
+      }
+      else {
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
+                path[0].string_direction + 
+                "</mark></ins></strong>";
+        var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
+          container: document.querySelector('#viewer'),
+          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + path[0].name,
+      overlay: "http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[0].line_name,
+            caption: path[0].name,
+        defaultLong: path[0].angle,
+        });
+      }
+      document.getElementById("viewer").style.display = "block"; // show the display
       document.getElementById("{{ start }}").style.fontWeight = "bold";
+    }
+    
       function nextImage() {
         if (current+1 < path.length){
             var element = document.getElementById(path[current].name);
@@ -149,30 +153,33 @@
 			      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
               path[current].string_direction + 
               "</mark></ins></strong>";
-            viewer.setPanorama("http://localhost:36824/get_image/" + path[current].name)
-			 .then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
+            viewer.setPanorama("http://ukhealthgps.servehttp.com:36824/get_image/" + path[current].name)
+			 .then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
             viewer.setOptions({
 				caption: path[current].name,
 			});
-			viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name);
+			viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name);
 			//different angles of cameras can cause jarring turns in animation, this should fix:
+			//get the angle facing opposite of the angle pointing back to the last node
 			start_angle = path[current].angle_back;
 			if (start_angle < 0.0) {
 				start_angle = start_angle + 3.14159;
 			} else {
 				start_angle = start_angle - 3.14159;
 			}
+			//instantly rotate viewer to that angle
 			viewer.rotate({
 				longitude: start_angle,
 				latitude: 0.0,
 			});
+			//smoothly animate viewer to angle pointing to the next node
 			viewer.animate({
 				longitude: path[current].angle,
 				latitude: 0.0,
 				zoom: 0,
 				speed: '8rpm',
 			})
-			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
+			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
             var element = document.getElementById(path[current].name);
             element.style.fontWeight = "bold";
         }
@@ -186,13 +193,13 @@
             document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
               path[current].string_direction + 
               "</mark></ins></strong>";
-            viewer.setPanorama("http://localhost:36824/get_image/" + path[current].name)
-			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
+            viewer.setPanorama("http://ukhealthgps.servehttp.com:36824/get_image/" + path[current].name)
+			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
 
             viewer.setOptions({
 				caption: path[current].name,
 			});
-			viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name);
+			viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name);
 			start_angle = path[current].angle_back;
 			if (start_angle < 0.0) {
 				start_angle = start_angle + 3.14159;
@@ -209,7 +216,7 @@
 				zoom: 0,
 				speed: '8rpm',
 			})
-			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
+			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
             element = document.getElementById(path[current].name);
             element.style.fontWeight = "bold";
       }
@@ -239,18 +246,5 @@
     }
 }
 </script>
-
-<!--<script>-->
-<!--  function nextImage() {-->
-<!--    var t = document.getElementById("dim_button")-->
-<!--    if (t.innerHTML == "2D-View") // if the website is in 3D-Mode-->
-<!--    {-->
-<!--       // use the api to obtain the next image from server-->
-<!--      viewer.setPanorama('https://www.openfootage.net/Openfootage/Vorschau/00309_Snow/00309_Snow_Preview_360_Panorama.jpg'); // insert the image into the photoviewer-->
-<!--      // store the last image in a buffer-->
-<!--      console.log("Ran Next Image");-->
-<!--    }-->
-<!--  }-->
-<!--</script>-->
 </body>
 </html>

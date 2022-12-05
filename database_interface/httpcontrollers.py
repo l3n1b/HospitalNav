@@ -9,7 +9,8 @@ from DBTools import loadDB
 from DBTools import shortestPath
 
 from DBTools import incrementMetric
-#from DBTools import getMetric
+from DBTools import getMetric
+from DBTools import getMetrics
 from DBTools import getEndpoints
 from DBTools import getStartpoints
 import os
@@ -130,16 +131,28 @@ def reset():
 def shortest_path(start, end):
     return jsonify(shortestPath(start, end))
 
-# @app.route('/get_metric/<string:name>', methods = ['GET'])
-# def get_metric(name):
-#     dbname = "locations"
-#     login = "root"
-#     password = "rootpwd"
+@app.route('/get_metric/<string:name>', methods = ['GET'])
+def get_metric(name):
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
 
-#     client = pyorient.OrientDB("172.17.0.2", 2424)
-#     session_id = client.connect(login, password)
+    client = pyorient.OrientDB(ip, 2424)
+    session_id = client.connect(login, password)
 
-#     client.db_open(dbname, login, password)
-#     return jsonify(getMetric(client, name))
+    client.db_open(dbname, login, password)
+    return jsonify(getMetric(client, name))
 
-app.run(host=ip, port=36824, debug=True)
+@app.route('/get_metrics', methods = ['GET'])
+def get_metrics():
+    dbname = "locations"
+    login = "root"
+    password = "rootpwd"
+
+    client = pyorient.OrientDB(ip, 2424)
+    session_id = client.connect(login, password)
+
+    client.db_open(dbname, login, password)
+    return jsonify(getMetrics(client))
+
+app.run(host='0.0.0.0', port=36824, debug=True)

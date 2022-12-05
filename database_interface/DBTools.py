@@ -6,8 +6,7 @@ import path_tools
 import os
 from PIL import Image
 
-ip = "localhost"
-
+ip = "172.17.0.2"
 
 def reset_db(client, name):
 
@@ -45,9 +44,16 @@ def getStartpoints(client):
     startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
     return [startpoint.__getattr__('name') for startpoint in startpoints]
 
-# def getMetric(client, name):
-#     metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
-#     return metric[0].__getattr__('metric')
+def getMetric(client, name):
+    metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
+    return metric[0].__getattr__('metric')
+
+def getMetrics(client):
+    metrics = client.query("SELECT name, metric FROM Location ORDER BY metric DESC")
+    dictionary = {}
+    for metric in metrics:
+        dictionary[metric.__getattr__('name')] = metric.__getattr__('metric')
+    return dictionary
 
 def incrementMetric(client, name):
     client.command("UPDATE Location INCREMENT metric = 1 WHERE name = '" + str(name) + "'")
@@ -239,7 +245,7 @@ def shortestPath(locationA, locationB):
     client.close()
 
     path_string = string_directions(path)
-    path_string = next_nodes(path_string, 3, 'data/images/lines/', 0.6333, 5)
+    path_string = next_nodes(path_string, 3, 'data/images/lines/', 1, 5)
 
     return path_string
 
@@ -253,16 +259,22 @@ def string_directions(path):
             path[i]['string_direction'] = f'Take the elevator to floor {next_floor}'
             #next iteration, first vector will be zero vector. will always display direction as straight, avoids unintended behavior with different coords on diff maps
         else:
+            #get length of path to next node
+            distance = path_tools.vec_dist((path[i+1]["x_coord"]-path[i]["x_coord"],
+                path[i+1]["y_coord"]-path[i]["y_coord"]))
+            #get 5 foot approximation
+            distance = int(distance/5) * 5
+
             #find angle of out angle from perspective of back angle
             angle = path[i]["angle"] - path[i]["angle_back"] + np.pi
             angle = path_tools.reg_angle(angle) #set to range -pi, pi
             #3pi/4 and pi/4 constants are precomputed because python is iffy about folding constants
             if (angle > -2.3562 and angle < -0.7854):
-                path[i]['string_direction'] = 'Turn left'
+                path[i]['string_direction'] = 'Turn left then continue for ' + str(distance) + ' feet'
             elif (angle < 0.7854):
-                path[i]['string_direction'] = 'Head straight'
+                path[i]['string_direction'] = 'Head straight for ' + str(distance) + ' feet'
             elif (angle < 2.3562):
-                path[i]['string_direction'] = 'Turn right'
+                path[i]['string_direction'] = 'Turn right then continue for ' + str(distance) + ' feet'
             else:
                 path[i]['string_direction'] = 'Turn backwards' #probably an error case but maybe there are weird directions
     path[-1]['string_direction'] = 'You\'ve arrived!'
@@ -277,7 +289,7 @@ def next_nodes(path, segments=3, line_path='data/images/lines/', unit_to_ft=1, c
             name += '_' + connections[i][j]['name']
         name += '.png'
         if not os.path.exists(line_path+name):        
-            with Image.open('data/images/' + path[i]['name'] + '.jpg') as img:
+            with Image.open('data/images/' + path[i]['name'] + '.JPG') as img:
                 w = img.width
                 h = img.height
             path_tools.draw_line(connections[i], line_path, w, h, cam_height/unit_to_ft)
