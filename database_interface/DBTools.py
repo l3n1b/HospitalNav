@@ -230,16 +230,7 @@ def shortestPath(locationA, locationB):
 
     for i in range(distance):
         path.append(getattr(client, raw_path[i]))
-    for i in range(distance-1):
-        path[i]["angle"] = getangle(client, raw_path[i], raw_path[i+1])
-        path[i+1]["angle_back"] = getangle(client, raw_path[i+1], raw_path[i]) #angle back to path[i]
-    
-    if len(path) >= 2:
-        path[-1]["angle"] = path[-2]["angle"] #last node has no out edge: just use angle of second-to-last node
-        path[0]["angle_back"] = path[1]["angle_back"]
-    else:
-        path[-1]["angle"] = 0.0 # 1 node path edge case
-        path[0]["angle_back"] = 0.0
+    path = path_angles(path, raw_path, client, distance)
 
     #pyorient.otypes.OrientRecord
     client.close()
@@ -249,10 +240,30 @@ def shortestPath(locationA, locationB):
 
     return path_string
 
+#assign angles to each node along the path
+def path_angles(path, raw_path, client, distance):
+    for i in range(distance-1):
+        path[i]["angle"] = getangle(client, raw_path[i], raw_path[i+1])
+        path[i+1]["angle_back"] = getangle(client, raw_path[i+1], raw_path[i]) #angle back to path[i]
+    
+    if len(path) >= 2:
+        path[-1]["angle"] = opposite_angle(path[-1]["angle_back"])
+        path[0]["angle_back"] = opposite_angle(path[0]["angle"])
+    else: #1 node path edge case
+        path[-1]["angle"] = 0.0 
+        path[0]["angle_back"] = 0.0
+
+#get the angle opposite of current angle within range -pi, pi
+def opposite_angle(angle):
+    if angle < 0:
+        return angle + np.pi
+    else:
+        return angle - np.pi
+
 #take back angle and out angle to find left/right/straight turns
 #angles are in range -pi, pi
 #trevor roussel
-def string_directions(path):
+def string_directions(path, units_to_feet=1):
     for i in range(len(path)-1):
         next_floor = path[i+1]['floor']
         if(path[i]['floor'] != next_floor):
@@ -263,7 +274,7 @@ def string_directions(path):
             distance = path_tools.vec_dist((path[i+1]["x_coord"]-path[i]["x_coord"],
                 path[i+1]["y_coord"]-path[i]["y_coord"]))
             #get 5 foot approximation
-            distance = int(distance/5) * 5
+            distance = int(distance*units_to_feet/5) * 5
 
             #find angle of out angle from perspective of back angle
             angle = path[i]["angle"] - path[i]["angle_back"] + np.pi
