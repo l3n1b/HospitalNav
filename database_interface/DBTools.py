@@ -45,31 +45,12 @@ def getStartpoints(client):
     startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
     return [startpoint.__getattr__('name') for startpoint in startpoints]
 
-def getMetric(client, name):
-    metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
-    return metric[0].__getattr__('metric')
+# def getMetric(client, name):
+#     metric = client.query("SELECT metric FROM Location WHERE name = '" + str(name) + "'")
+#     return metric[0].__getattr__('metric')
 
 def incrementMetric(client, name):
     client.command("UPDATE Location INCREMENT metric = 1 WHERE name = '" + str(name) + "'")
-
-def getBuildings(client):
-    buildings = client.query("SELECT name FROM Building")
-    building_dict = {}
-    return [{building['name']: building['floors']} for building in buildings]
-
-def getQuery(client, name, building, floor, startpoint, endpoint):
-    nodes = client.query("SELECT name, building, floor, is_startpoint, is_endpoint WHERE"
-        + " name = " + name
-        + ", building = " + building
-        + ", floor = " + floor
-        + ", is_startpoint = " + startpoint
-        + ", is_endpoint = " + endpoint)
-    return [{'name':nodes[key]['name'], 
-        'building':nodes[key]['building'],
-        'floor':nodes[key]['floor'], 
-        'is_startpoint':nodes[key]['is_startpoint'],
-        'is_endpoint':nodes[key]['is_endpoint']} 
-        for key in nodes]
 
 #def getphoto(client, name):
 #    photosphere = client.query("SELECT photosphere FROM Location WHERE name = '" + str(name) + "'")
@@ -145,8 +126,8 @@ def simpleLoadDB(filepath):
         + "', is_endpoint = " + str(data[key]["is_endpoint"])
         + ", x_coord = " + str(data[key]["x_coord"])
         + ", y_coord = " + str(data[key]["y_coord"])
-        + ", building = " + str(data[key]["building"])
-        + ", map = " + str(data[key]["map"]))
+        + ", building = " + data[key]["building"]
+        + ", map = " + data[key]["map"])
 
     #loop through each key creating edges from location to location
     for key in data:
@@ -191,29 +172,9 @@ def loadDB(filepath):
     client.command("CREATE CLASS Connection EXTENDS E")
     client.command("CREATE PROPERTY Connection.angle Double")
 
-    client.command("CREATE CLASS Building EXTENDS V")
-    client.command("CREATE PROPERTY Building.name String")
-    client.command("CREATE PROPERTY Building.floors EMBEDDEDLIST")
-
     #open and parse local json file
     with open(filepath) as f:
         data = json.load(f)
-
-    #find every unique building + floor combination
-    buildings = {}
-    for key in data:
-        build_key = data[key]["building"]
-        if build_key not in buildings.keys():
-            buildings[build_key] = {data[key]["floor"]} #set
-        else:
-            buildings[build_key].add(data[key]["floor"])
-    for key in buildings:
-        list_string = '['
-        for floor in buildings[key]:
-            list_string += '"' + floor + '", '
-        list_string = list_string[:-2] + ']'
-        client.command("CREATE VERTEX Building SET name = '" + key
-        + "', floors = " + list_string)
 
     #loop through each key in the json database and create a new vertex, V with the id in the database
     for key in data:
@@ -222,10 +183,10 @@ def loadDB(filepath):
         + "', is_endpoint = " + str(data[key]["is_endpoint"])
         + ", x_coord = " + str(data[key]["x_coord"])
         + ", y_coord = " + str(data[key]["y_coord"])
-        + ", building = '" + data[key]["building"]
-        + "', floor = '" + data[key]["floor"]
-        + "', map = '" + data[key]["map"]
-        + "', metric = 0")
+        + ", building = " + data[key]["building"]
+        + ", floor = " + data[key]["floor"]
+        + ", map = " + data[key]["map"]
+        + ", metric = 0")
 
     #loop through each key creating edges from location to location
     for key in data:
@@ -278,7 +239,7 @@ def shortestPath(locationA, locationB):
     client.close()
 
     path_string = string_directions(path)
-    path_string = next_nodes(path_string, 3, 'data/images/lines/', 1, 5)
+    path_string = next_nodes(path_string, 3, 'data/images/lines/', 0.6333, 5)
 
     return path_string
 

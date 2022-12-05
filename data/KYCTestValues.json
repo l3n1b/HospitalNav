@@ -162,8 +162,8 @@
    "General Surgery":{
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
-      "x_coord":133,
-      "y_coord":263,
+      "x_coord":132,
+      "y_coord":260,
       "building":"KYC",
       "floor":"1",
       "map":"KYCF1",
@@ -431,7 +431,7 @@
    "Hall10":{
       "is_startpoint":"FALSE",
       "is_endpoint":"FALSE",
-      "x_coord":137,
+      "x_coord":143,
       "y_coord":255,
       "building":"KYC",
       "floor":"1",
@@ -445,17 +445,6 @@
             "name":"General Surgery",
             "angle":-1.107
          }
-      ]
-   },
-   "DUMMY":{
-      "is_startpoint":"FALSE",
-      "is_endpoint":"FALSE",
-      "x_coord":1,
-      "y_coord":1,
-      "building":"KYC",
-      "floor":"2",
-      "map":"KYCF2",
-      "connectList":[
       ]
    }
 }
