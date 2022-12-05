@@ -189,9 +189,9 @@ def loadDB(filepath):
         + "', is_endpoint = " + str(data[key]["is_endpoint"])
         + ", x_coord = " + str(data[key]["x_coord"])
         + ", y_coord = " + str(data[key]["y_coord"])
-        + ", building = " + data[key]["building"]
-        + ", floor = " + data[key]["floor"]
-        + ", map = " + data[key]["map"]
+        + ", building = " + str(data[key]["building"])
+        + ", floor = " + str(data[key]["floor"])
+        + ", map = " + str(data[key]["map"])
         + ", metric = 0")
 
     #loop through each key creating edges from location to location
