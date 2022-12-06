@@ -1,0 +1,10 @@
+Design intentions and potential solution strategy for QR-poster printer application
+Written by Trevor Roussel
+
+An intended feature with this project was an administrative tool that would make it easy for hospital staff to create posters that users could scan and open the app based on their current location.
+Every path in the navigation app can be referenced by the page's URL subdirectory with the syntax as follows:
+{url}/{starting_node}&{destination_node}
+A starting location can be addressed with no destination in mind by writing destination_node as NULL. Based on this, a URL for any given starting location can be constructed as {url}/{starting_node}&NULL.
+	(Keep in mind that since URLs do not support ' ' characters, they are replaced with the string "%20")
+
+The printer app should allow staff to query each node in the database and select them to print a poster with a QR code that points to the navigation app starting at that node. The most clear way to do this would be letting them select from a graphic that plots each node based on their coordinates by selecting a given building and floor. If this isn't feasible, then simply displaying nodes in a list and allowing staff to query based on different properties could also be effective.
