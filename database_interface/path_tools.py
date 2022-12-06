@@ -119,13 +119,15 @@ def max_merge_offset(imBig: Image, overlay: Image, offset):
 
 #draw a line overlay given a node and partial path of next connections and size of overlay image
 def draw_line(ppath, save_path, w=1920, h=1080, cam_height=6, linew=25):
-    #no path to draw:
-    if(len(ppath)) <= 1:
-        return
-
     name = "line"
     for node in ppath:
         name += "_" + node["name"]
+
+    #no path to draw:
+    if(len(ppath)) <= 1:
+        line_image = Image.new("RGBA", [w, h], (0,0,0,0))
+        line_image.save(save_path+name+'.png')
+        return
 
     #new transparent image: expand width to deal with line wrapping problem
     line_image = Image.new("RGBA", [w+2*linew, h], (0,0,0,0))
@@ -155,12 +157,34 @@ def draw_line(ppath, save_path, w=1920, h=1080, cam_height=6, linew=25):
     save_image.save(save_path+name+'.png')
 
 
-# ppath = [{"name":"roada2_F1", "x_coord":21.1, "y_coord":46.9, "angle":2.51}, \
+#Test paths: only vary in offset of camera angle
+# ppath0 = [{"name":"roada2_F1", "x_coord":21.1, "y_coord":46.9, "angle":1.59}, \
 #     {"name":"roada3_F1", "x_coord":33.3, "y_coord":47.5, "angle":-3.114}, \
 #     {"name":"roadc1_F1", "x_coord":33.1, "y_coord":54.8, "angle":-3.061}, \
 #     {"name":"roadc2_F1", "x_coord":32.1, "y_coord":67.2, "angle":-1.4644}, \
 #     {"name":"roadg1_F1", "x_coord":21.8, "y_coord":66.1, "angle":-1.5707}, \
 #     {"name":"roadg2_F1", "x_coord":9.7, "y_coord":65.7, "angle":-1.5707}]
 
-# draw_line(ppath, "data/images/lines/")
+# ppath45 = [{"name":"roada2_F1", "x_coord":21.1, "y_coord":46.9, "angle":2.48}, \
+#     {"name":"roada3_F1", "x_coord":33.3, "y_coord":47.5, "angle":-3.114}, \
+#     {"name":"roadc1_F1", "x_coord":33.1, "y_coord":54.8, "angle":-3.061}, \
+#     {"name":"roadc2_F1", "x_coord":32.1, "y_coord":67.2, "angle":-1.4644}, \
+#     {"name":"roadg1_F1", "x_coord":21.8, "y_coord":66.1, "angle":-1.5707}, \
+#     {"name":"roadg2_F1", "x_coord":9.7, "y_coord":65.7, "angle":-1.5707}]
+
+# ppath90 = [{"name":"roada2_F1", "x_coord":21.1, "y_coord":46.9, "angle":-3.13}, \
+#     {"name":"roada3_F1", "x_coord":33.3, "y_coord":47.5, "angle":-3.114}, \
+#     {"name":"roadc1_F1", "x_coord":33.1, "y_coord":54.8, "angle":-3.061}, \
+#     {"name":"roadc2_F1", "x_coord":32.1, "y_coord":67.2, "angle":-1.4644}, \
+#     {"name":"roadg1_F1", "x_coord":21.8, "y_coord":66.1, "angle":-1.5707}, \
+#     {"name":"roadg2_F1", "x_coord":9.7, "y_coord":65.7, "angle":-1.5707}]
+
+# ppath270 = [{"name":"roada2_F1", "x_coord":21.1, "y_coord":46.9, "angle":0.06}, \
+#     {"name":"roada3_F1", "x_coord":33.3, "y_coord":47.5, "angle":-3.114}, \
+#     {"name":"roadc1_F1", "x_coord":33.1, "y_coord":54.8, "angle":-3.061}, \
+#     {"name":"roadc2_F1", "x_coord":32.1, "y_coord":67.2, "angle":-1.4644}, \
+#     {"name":"roadg1_F1", "x_coord":21.8, "y_coord":66.1, "angle":-1.5707}, \
+#     {"name":"roadg2_F1", "x_coord":9.7, "y_coord":65.7, "angle":-1.5707}]
+
+# draw_line(ppath45, "data/images/lines/")
 

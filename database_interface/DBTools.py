@@ -320,3 +320,4 @@ def next_nodes(path, segments=3, line_path='data/images/lines/', unit_to_ft=1, c
 #     if (np.cross(v1_norm, v2_norm) > 0):
 #         angle = angle + pi
 #     return angle
+
