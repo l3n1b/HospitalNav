@@ -8,18 +8,12 @@ function UserInputModal(setEntryDoor, setGoalLocation) {
 
     
     return (
-        <Modal
+        <Modal className='Modal'
             isOpen={isModalOpen}>
-            <h2>Hello</h2>
-            <button onClick={()=>{setIsModalOpen(false)}}>close</button>
-            <div>I am a modal</div>
-            <form>
-                <input />
-                <button>tab navigation</button>
-                <button>stays</button>
-                <button>inside</button>
-                <button>the modal</button>
-            </form>
+            <div className='ModalContent'>
+                <h2>Hello</h2>
+                <button onClick={()=>{setIsModalOpen(false)}}>close</button>
+            </div>
         </Modal>
     )
 }
