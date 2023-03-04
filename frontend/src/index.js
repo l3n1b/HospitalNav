@@ -7,6 +7,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import "./fonts/Mercury_Text_G1_Roman/Mercury_Text_G1_Roman.otf"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -12,7 +12,7 @@ function Homepage() {
                 <div className="Header-links-div">
                     <a className="Header-link" href="https://ukhealthcare.uky.edu"
                         target="_blank" rel="noopener noreferrer" >
-                    UK Healthcare
+                    UK HEALTHCARE
                     </a>
                 </div>
             </header>

@@ -11,6 +11,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: "KentuckyFont_1";
+  src: local("MercuryG1"),
+  url("./fonts/Mercury_Text_G1_Roman/Mercury_Text_G1_Roman.otf") format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "KentuckyFont_2";
+  src: local("AvenirNext"),
+  url("./fonts/Avenir_Next_LT_Pro/Avenir_Next_LT_Pro_Regular/Avenir_Next_LT_Pro_Regular.otf") format("");
+  font-weight: normal;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
