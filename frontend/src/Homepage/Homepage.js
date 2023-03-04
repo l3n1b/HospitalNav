@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './Homepage.css'
+import UserInputModal from '../UserInputModal/UserInputModal'
 
 function Homepage() {
 
+    const [entryDoor, setEntryDoor] = useState(null) 
+    const [goalLocation, setGoalLocation] = useState(null)
+
     return (
         <div className='Homepage'>
+            <UserInputModal />
             <header className='Homepage-header'>
                 <img src={process.env.PUBLIC_URL + "/UKlogo-white.png"} 
                     alt="UKlogo.png" className='UKLogo'/>
