@@ -1,0 +1,12 @@
+.Modal {
+    position: absolute;
+    top: 8vh;
+    left: 10vw;
+    right: 10vw;
+    bottom: 40vh;
+    background-color: white;
+}
+
+.ModalContent {
+    align-items: center;
+}

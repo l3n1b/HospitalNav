@@ -1,0 +1,32 @@
+.Homepage {
+    text-align: center;
+}
+
+.Homepage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: var(--kentuckyBlue);
+    height: 15vh;
+}
+
+.UKLogo {
+    padding-top: 1vh;
+    height: 13vh;
+}
+
+.Header-links-div {
+    display: flex;
+    position: absolute;
+    top: 10vh;
+    left: 80vw
+}
+
+.Header-link {
+    color: white;
+    padding-right: 2vw;
+    padding-left: 2vw;
+    font-family: "KentuckyFont_2";
+    font-size: 2vw;
+    text-decoration: none;
+}

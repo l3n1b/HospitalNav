@@ -1,1 +1,4 @@
 data/images/lines/
+*.whl
+*.yml
+*.DS_Store
