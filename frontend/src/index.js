@@ -16,7 +16,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/chooseStart" element={<DestSelector />} />
+        <Route path="/chooseEntry" element={<DestSelector />} />
         <Route path="/chooseDest" element={<DestSelector />} />
         {/* <Route path="/????" element={<???? />} />
         <Route path="/????" element={<???? />} />

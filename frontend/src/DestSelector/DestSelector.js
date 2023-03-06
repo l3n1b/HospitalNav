@@ -1,7 +1,8 @@
 import './DestSelector.css'
 import MainHeader from '../MainHeader/MainHeader'
 
-function DestSelector() {
+// takes a function called setDestination
+function DestSelector(setDestination) {
     return (
         <div>
             <MainHeader />
