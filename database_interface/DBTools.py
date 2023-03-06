@@ -252,6 +252,7 @@ def path_angles(path, raw_path, client, distance):
     else: #1 node path edge case
         path[-1]["angle"] = 0.0 
         path[0]["angle_back"] = 0.0
+    return path
 
 #get the angle opposite of current angle within range -pi, pi
 def opposite_angle(angle):
