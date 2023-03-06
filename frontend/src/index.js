@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Homepage from './Homepage/Homepage';
+import DestSelector from './DestSelector/DestSelector';
 import {
   BrowserRouter,
   Routes,
@@ -15,6 +16,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/chooseEntry" element={<DestSelector />} />
+        <Route path="/chooseDest" element={<DestSelector />} />
         {/* <Route path="/????" element={<???? />} />
         <Route path="/????" element={<???? />} />
         <Route path="/????" element={<???? />} /> */}

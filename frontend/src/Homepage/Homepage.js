@@ -1,26 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import './Homepage.css'
-import UserInputModal from '../UserInputModal/UserInputModal'
+import MainHeader from '../MainHeader/MainHeader'
+
+/*
+Example URLs: 
+    http://localhost:3000/?entry=""&destination=""
+    http://localhost:3000/?entry="door_1"&destination="cardiovascular"
+    http://localhost:3000/?entry="door_1"&destination=""
+
+    Currently the homepage automatically routes if either of the
+    values (entry or destination) are not set. This can be changed.
+*/
 
 function Homepage() {
+    const naviagte = useNavigate()
+    const queryParameters = new URLSearchParams(window.location.search)
 
-    const [entryDoor, setEntryDoor] = useState(null) 
-    const [goalLocation, setGoalLocation] = useState(null)
-
+    // check if the user has a destination or entryDoor. 
+    // If they do not have an entryDoor, route them to destSelector
+    // If they do not have a destination, route them to destSelector
+    useEffect(() => {
+        if(!queryParameters.get("entry")){
+            naviagte("/chooseEntry")
+        }
+        else if(!queryParameters.get("destination")){
+            naviagte("/chooseDest")
+        }
+    })
+    
     return (
         <div className='Homepage'>
-            <UserInputModal />
-            <header className='Homepage-header'>
-                <img src={process.env.PUBLIC_URL + "/UKlogo-white.png"} 
-                    alt="UKlogo.png" className='UKLogo'/>
-                <div className="Header-links-div">
-                    <a className="Header-link" href="https://ukhealthcare.uky.edu"
-                        target="_blank" rel="noopener noreferrer" >
-                    UK HEALTHCARE
-                    </a>
-                </div>
-            </header>
+            <MainHeader />
+            {/*
+            This is where a map component will be rendered (Joseph)
+            */}
 		</div>
     )
 }
