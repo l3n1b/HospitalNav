@@ -11,6 +11,9 @@ function Homepage() {
     return (
         <div className='Homepage'>
             <MainHeader />
+            {/*
+            This is where a map component will be rendered (Joseph)
+            */}
 		</div>
     )
 }

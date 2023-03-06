@@ -5,6 +5,9 @@ function DestSelector() {
     return (
         <div>
             <MainHeader />
+            {/*
+            This is where the destination selector will be rendered (Kate)
+            */}
         </div>
     )
 }
