@@ -4,6 +4,7 @@ import './index.css';
 import Homepage from './Pages/Homepage';
 import ChooseEnd from './Pages/ChooseEnd';
 import Map2D from './Pages/Map2D';
+import DestSelector from './DestSelector/DestSelector';
 import {
   BrowserRouter,
   Routes,
@@ -17,6 +18,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/chooseDest" element={<DestSelector />} />
         <Route path="/:start" element={<ChooseEnd />} />
         <Route path="/noStart/:end" element={<Map2D />} />
         <Route path="/:start/:end" element={<Map2D />} />
