@@ -6,13 +6,13 @@ function UserInputModal(setEntryDoor, setGoalLocation) {
 
     const [isModalOpen, setIsModalOpen] = useState(true)
 
-    
+
     return (
         <Modal className='Modal'
             isOpen={isModalOpen}>
             <div className='ModalContent'>
                 <h2>Hello</h2>
-                <button onClick={()=>{setIsModalOpen(false)}}>close</button>
+                <button class='btn btn-primary' onClick={()=>{setIsModalOpen(false)}}>close</button>
             </div>
         </Modal>
     )
