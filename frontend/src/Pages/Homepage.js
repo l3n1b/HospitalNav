@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import LoadingSpinner from '../Partials/LoadingSpinner';
+import React, { useState } from 'react';
 import './Homepage.css'
 import UserInputModal from '../Partials/UserInputModal'
-import Header from '../Partials/Header';
+import MainHeader from '../Partials/MainHeader';
 
 function Homepage() {
 
@@ -12,7 +11,7 @@ function Homepage() {
     return (
         <div className='Homepage'>
             <UserInputModal />
-            <Header />
+            <MainHeader />
             <div>
                 <h3>Choose start location</h3>
                 <li><a href='1st Floor Main Entrance'>1st Floor Main Entrance</a></li>

@@ -4,7 +4,7 @@ import './index.css';
 import Homepage from './Pages/Homepage';
 import ChooseEnd from './Pages/ChooseEnd';
 import Map2D from './Pages/Map2D';
-import DestSelector from './DestSelector/DestSelector';
+import DestSelector from './Pages/DestSelector';
 import {
   BrowserRouter,
   Routes,

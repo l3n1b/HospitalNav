@@ -1,15 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Partials/Header';
-
-
+import MainHeader from '../Partials/MainHeader';
 
 function Map2D() {
     let {start, end} = useParams()
 
     return (
         <div className='Map2D'>
-            <Header />
+            <MainHeader />
             <div className="container">
                 <h3>Start location: {start}</h3>
                 <h3>End location: {end}</h3>

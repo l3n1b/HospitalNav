@@ -1,9 +1,11 @@
+// Not used anymore
+
 import React from 'react';
 
 function Header() {
 
     return (
-            <header className='Homepage-header'>
+            <header className='Homepage-header Header'>
                 <img src={process.env.PUBLIC_URL + "/UKlogo-white.png"}
                     alt="UKlogo.png" className='UKLogo'/>
                 <div className="Header-links-div">

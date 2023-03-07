@@ -1,5 +1,5 @@
 import './DestSelector.css'
-import MainHeader from '../MainHeader/MainHeader'
+import MainHeader from '../Partials/MainHeader'
 
 // takes a function called setDestination
 function DestSelector(setDestination) {

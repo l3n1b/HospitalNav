@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Partials/Header';
+import MainHeader from '../Partials/MainHeader';
 
 function ChooseEnd() {
     let { start } = useParams()
@@ -8,7 +8,7 @@ function ChooseEnd() {
 
     return (
         <div className='ChooseEnd'>
-            <Header />
+            <MainHeader />
             <div className='container'>
                 <h3>Start location chosen: {start}</h3>
                 <h3>Choose end location</h3>
