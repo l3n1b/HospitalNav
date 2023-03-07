@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Homepage from './Homepage/Homepage';
+import Homepage from './Pages/Homepage';
+import ChooseEnd from './Pages/ChooseEnd';
+import Map2D from './Pages/Map2D';
 import {
   BrowserRouter,
   Routes,
@@ -15,9 +17,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        {/* <Route path="/????" element={<???? />} />
-        <Route path="/????" element={<???? />} />
-        <Route path="/????" element={<???? />} /> */}
+        <Route path="/:start" element={<ChooseEnd />} />
+        <Route path="/noStart/:end" element={<Map2D />} />
+        <Route path="/:start/:end" element={<Map2D />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

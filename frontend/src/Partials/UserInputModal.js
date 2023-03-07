@@ -9,10 +9,12 @@ function UserInputModal(setEntryDoor, setGoalLocation) {
 
     return (
         <Modal className='Modal'
-            isOpen={isModalOpen}>
+            isOpen={isModalOpen}
+            appElement={document.getElementById('root')}>
+
             <div className='ModalContent'>
                 <h2>Hello</h2>
-                <button class='btn btn-primary' onClick={()=>{setIsModalOpen(false)}}>close</button>
+                <button className='btn btn-primary' onClick={()=>{setIsModalOpen(false)}}>close</button>
             </div>
         </Modal>
     )

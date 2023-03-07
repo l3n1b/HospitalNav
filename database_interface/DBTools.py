@@ -6,7 +6,8 @@ import path_tools
 import os
 from PIL import Image
 
-ip = "172.17.0.2"
+ip = "localhost"
+# ip = "172.17.0.2"
 
 def reset_db(client, name):
 
@@ -22,7 +23,7 @@ def reset_db(client, name):
 def getrid(client,name):
     nodeId = client.query("SELECT FROM Location WHERE name = '" + str(name) + "'")
     return str(nodeId[0]._rid)
-    
+
 def getname(client, rid):
     name = client.query("SELECT name FROM " + rid.get_hash())
     return name[0].__getattr__('name')
@@ -39,7 +40,7 @@ def getangle(client, ridout, ridin):
 def getEndpoints(client):
     endpoints = client.query("SELECT name FROM Location WHERE is_endpoint = TRUE")
     return [endpoint.__getattr__('name') for endpoint in endpoints]
-    
+
 def getStartpoints(client):
     startpoints = client.query("SELECT name FROM Location WHERE is_startpoint = TRUE")
     return [startpoint.__getattr__('name') for startpoint in startpoints]
@@ -245,12 +246,12 @@ def path_angles(path, raw_path, client, distance):
     for i in range(distance-1):
         path[i]["angle"] = getangle(client, raw_path[i], raw_path[i+1])
         path[i+1]["angle_back"] = getangle(client, raw_path[i+1], raw_path[i]) #angle back to path[i]
-    
+
     if len(path) >= 2:
         path[-1]["angle"] = opposite_angle(path[-1]["angle_back"])
         path[0]["angle_back"] = opposite_angle(path[0]["angle"])
     else: #1 node path edge case
-        path[-1]["angle"] = 0.0 
+        path[-1]["angle"] = 0.0
         path[0]["angle_back"] = 0.0
     return path
 
@@ -300,7 +301,7 @@ def next_nodes(path, segments=3, line_path='data/images/lines/', unit_to_ft=1, c
         for j in range(len(connections[i])):
             name += '_' + connections[i][j]['name']
         name += '.png'
-        if not os.path.exists(line_path+name):        
+        if not os.path.exists(line_path+name):
             with Image.open('data/images/' + path[i]['name'] + '.JPG') as img:
                 w = img.width
                 h = img.height
