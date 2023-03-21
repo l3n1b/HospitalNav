@@ -1,0 +1,6 @@
+DO THIS ALL IN THE src DIRECTORY!
+To get started, run:
+    npm install
+To open the app, run:
+    npm start
+It should open up your browser and show what you've done so far. 

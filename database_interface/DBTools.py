@@ -5,8 +5,9 @@ import numpy as np
 import path_tools
 import os
 from PIL import Image
-
-ip = "172.17.0.2"
+ 
+# ip = "172.17.0.2"
+ip = "localhost"
 
 def reset_db(client, name):
 
