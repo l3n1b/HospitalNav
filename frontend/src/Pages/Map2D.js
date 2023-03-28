@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
-import { Viewer } from '@photo-sphere-viewer/core';
-import { ReactPhotoSphereViewer, MapPlugin, CompassPlugin } from 'react-photo-sphere-viewer';
+// import { Viewer } from '@photo-sphere-viewer/core';
+import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
 import './Map2d.css'
 
 function Map2D() {
@@ -10,7 +10,7 @@ function Map2D() {
 
     const plugins =  [
             [MapPlugin, {
-                imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1.png'),
+                imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
                 center: { x: 785, y: 421 },
                 rotation: '-12deg',
             }],

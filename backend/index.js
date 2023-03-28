@@ -33,7 +33,7 @@ app.use(router)
 /*                     */
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 3001;
 
 // app.get("/", (req, res) => {
 //     res.send("This is the root!")
@@ -85,7 +85,10 @@ router.route('/destination/:destID')
     })
 
 //send image to frontend
-
+router.route('/test')
+    .get((req, res) => {
+        res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
+    })
 
 
 // router
@@ -96,4 +99,3 @@ router.route('/destination/:destID')
 //     .put((req, res) => {
 //       res.send("hi put /things/cars/" + req.params.carid);
 //     });
-  
