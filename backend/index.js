@@ -6,6 +6,8 @@ To test if a route works, go http://localhost:3000/???? Ex: http://localhost:300
 const express = require('express')
 const app = express()
 const router = new express.Router();
+const dataJson = require('./KYCTestValues.json');
+
 
 
 /* for session things  */
@@ -82,17 +84,24 @@ router.route('/destination/:destID')
         res.send(`PUT: Requesting Resource "${req.params.destID}" from /destination`);
     })
 
-//send image to frontend
+//send image to frontend 
 router.route('/test')
     .get((req, res) => {
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
 //JOSEPH LINDEMUTH
-router.route('/:startID/data')
+router.route('/data/:startID')
 .get((req, res) => {
-    res.send("Hello")
+    let input = req.params.startID;
+    x_coord = dataJson[input]['x_coord']
+    y_coord = dataJson[input]['y_coord']
+    image_path = "data\\images\\"+input+".JPG";
+    // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
+    res.send({x: x_coord, y: y_coord, path: image_path})
 })
+
+
 
 
 // router
