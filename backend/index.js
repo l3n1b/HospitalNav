@@ -94,8 +94,8 @@ router.route('/test')
 router.route('/data/:startID')
 .get((req, res) => {
     let input = req.params.startID;
-    x_coord = dataJson[input]['x_coord']
-    y_coord = dataJson[input]['y_coord']
+    x_coord = (dataJson[input]['x_coord']*2.75846)+309.9
+    y_coord = (dataJson[input]['y_coord']*2.94737)+462.8
     image_path = "data\\images\\"+input+".JPG";
     // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
     res.send({x: x_coord, y: y_coord, path: image_path})
