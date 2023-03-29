@@ -4,11 +4,14 @@ We shouldn't need the routes page in this case, we should just be able to add ne
 To test if a route works, go http://localhost:3000/???? Ex: http://localhost:3000/helloworld
 */
 const express = require('express')
+const cors = require("cors"); // Allows cross origin requests to go through and prevent fetches to API from erroring out
 const app = express()
 const router = new express.Router();
 const dataJson = require('./KYCTestValues.json');
 
-
+const corsOptions = {
+    origin: "http://localhost:3000",
+  };
 
 /* for session things  */
 const uuid = require('uuid')
@@ -29,6 +32,8 @@ app.use(session({
         secure: false
     }
 }))
+
+app.use(cors(corsOptions));
 
 app.use(router)
 
@@ -84,19 +89,18 @@ router.route('/destination/:destID')
         res.send(`PUT: Requesting Resource "${req.params.destID}" from /destination`);
     })
 
-//send image to frontend 
+//send image to frontend
 router.route('/test')
     .get((req, res) => {
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
-//JOSEPH LINDEMUTH
 router.route('/data/:startID')
 .get((req, res) => {
     let input = req.params.startID;
     x_coord = (dataJson[input]['x_coord']*2.75846)+309.9
     y_coord = (dataJson[input]['y_coord']*2.94737)+462.8
-    image_path = "data\\images\\"+input+".JPG";
+    image_path = "/images/"+input+".JPG";
     // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
     res.send({x: x_coord, y: y_coord, path: image_path})
 })

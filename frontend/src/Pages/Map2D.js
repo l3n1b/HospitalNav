@@ -10,55 +10,37 @@ const XOffset = 309.9
 const YScale = 2.94737
 const YOffset = 462.8
 
-const getData = async () => {
-    const response = await fetch("../data/");
-    return response
+const getData = async (start) => {
+    const response = await fetch("http://localhost:3001/data/" + start, {
+        method : "GET",
+        mode: 'cors'
+    });
+    // const response = await fetch("http://localhost:3001/data/" + start);
+    let data = await response.json()
+
+    // const data = await response.json();
+    // console.log(data);
+    return data
 }
 
 const Map2D = () => {
-    const [fetchCall, setFetchCall] = useState();
     let {start, end} = useParams()
-    const [photoViewerElement, setPhotoViewerElement] = useState();
+    let [photoViewerElement, setPhotoViewerElement] = useState();
 
     useEffect(() => {
-        getData().then(
+        getData(start).then(
             result => {
-                setFetchCall(result)
+                console.log(result)
                 let plugins = ([
                                 [MapPlugin, {
                                     imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-                                    center: { x: 785, y: 421 },
+                                    center: { x: result.x, y: result.y },
                                     rotation: '-12deg',
                                 }],
                             ])
-                setPhotoViewerElement(photoViewer(plugins));
+                setPhotoViewerElement(getPhotoViewer(plugins, result.path));
             });
     },[]);
-
-
-
-    console.log(fetchCall)
-
-    // useEffect(() => {
-    //     const dataFetch = async () => {
-    //         const data = await (
-    //             await fetch("./data")
-    //             .then(response => {
-    //                 console.log(response)
-    //                 setPlugins([
-    //                     [MapPlugin, {
-    //                         imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-    //                         center: { x: 785, y: 421 },
-    //                         rotation: '-12deg',
-    //                     }],
-    //                 ]);
-
-    //             })
-    //             .catch(error => {
-    //                 console.log(error)
-    //             })
-    //         )
-    //     }
 
     //     dataFetch()
     // }, []);
@@ -103,9 +85,8 @@ const Map2D = () => {
     )
 }
 
-function photoViewer(plugins) {
-    console.log("photo viewer")
-    return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + '/images/Hall1.JPG'}
+function getPhotoViewer(plugins, imagePath) {
+    return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
     height={'70vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
 }
