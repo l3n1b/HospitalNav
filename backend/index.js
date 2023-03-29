@@ -90,6 +90,12 @@ router.route('/test')
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
+//JOSEPH LINDEMUTH
+router.route('/:startID/data')
+.get((req, res) => {
+    res.send("Hello")
+})
+
 
 // router
 //     .route("/cars/:carid")

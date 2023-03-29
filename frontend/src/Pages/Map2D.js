@@ -5,8 +5,21 @@ import MainHeader from '../Partials/MainHeader';
 import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
 import './Map2d.css'
 
+const XScale = 2.75846
+const XOffset = 309.9
+const YScale = 2.94737
+const YOffset = 462.8
+
 function Map2D() {
     let {start, end} = useParams()
+
+    fetch("./data")
+    .then(response => {
+        console.log(response)
+    })
+    .catch(error => {
+        console.log(error)
+    });
 
     const plugins =  [
             [MapPlugin, {
@@ -53,7 +66,7 @@ function Map2D() {
             <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + '/images/Hall1.JPG'}
                 height={'80vh'} width={"100%"} plugins={plugins}
                 ></ReactPhotoSphereViewer>
-            {photoViewer()}
+            {/* {photoViewer()} */}
 		</div>
     )
 }
