@@ -11,29 +11,31 @@ const YScale = 2.94737
 const YOffset = 462.8
 
 const getData = async () => {
-    const response = await fetch("./data");
+    const response = await fetch("../data/");
     return response
 }
 
 const Map2D = () => {
-    let [plugins, setPlugins] = useState(); // change to const
     const [fetchCall, setFetchCall] = useState();
     let {start, end} = useParams()
-
-    plugins = [
-                [MapPlugin, {
-                    imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-                    center: { x: 785, y: 421 },
-                    rotation: '-12deg',
-                }],
-            ]
+    const [photoViewerElement, setPhotoViewerElement] = useState();
 
     useEffect(() => {
         getData().then(
             result => {
                 setFetchCall(result)
+                let plugins = ([
+                                [MapPlugin, {
+                                    imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
+                                    center: { x: 785, y: 421 },
+                                    rotation: '-12deg',
+                                }],
+                            ])
+                setPhotoViewerElement(photoViewer(plugins));
             });
     },[]);
+
+
 
     console.log(fetchCall)
 
@@ -72,8 +74,6 @@ const Map2D = () => {
     //     }]
     // ]
 
-    // console.log(plugins)
-
     return (
         <div className='Map2D'>
             <MainHeader />
@@ -97,20 +97,17 @@ const Map2D = () => {
         }); */}
 
             <div id="viewer"></div>
-            <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + '/images/Hall1.JPG'}
-                height={'70vh'} width={"100%"} plugins={plugins}
-                ></ReactPhotoSphereViewer>
-            {/* {photoViewer()} */}
+
+            {photoViewerElement}
 		</div>
     )
 }
 
-function photoViewer() {
+function photoViewer(plugins) {
     console.log("photo viewer")
-    // const viewer = new Viewer({
-    //     container: document.querySelector('#viewer'),
-    //     panorama: (process.env.PUBLIC_URL + '/images/Hall1.JPG'),
-    // });
+    return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + '/images/Hall1.JPG'}
+    height={'70vh'} width={"100%"} plugins={plugins}
+    ></ReactPhotoSphereViewer>
 }
 
 export default Map2D;
