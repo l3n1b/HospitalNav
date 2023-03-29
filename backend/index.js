@@ -50,8 +50,6 @@ app.listen(port, err => {
     console.log(`Listening on port ${port}`);
 });
 
-
-
 router.route('/')
     .get((req, res)=>{
         res.send(`This is the root!`);

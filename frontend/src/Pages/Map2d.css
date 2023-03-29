@@ -3,6 +3,6 @@
     height: 100vh;
 } */
 
-/* .view-container {
-    height: 67vh;
-} */
+.container.info {
+    height: 20vh;
+}

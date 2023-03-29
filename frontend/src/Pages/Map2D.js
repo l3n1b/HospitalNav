@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
 // import { Viewer } from '@photo-sphere-viewer/core';
@@ -10,24 +10,56 @@ const XOffset = 309.9
 const YScale = 2.94737
 const YOffset = 462.8
 
-function Map2D() {
+const getData = async () => {
+    const response = await fetch("./data");
+    return response
+}
+
+const Map2D = () => {
+    let [plugins, setPlugins] = useState(); // change to const
+    const [fetchCall, setFetchCall] = useState();
     let {start, end} = useParams()
 
-    fetch("./data")
-    .then(response => {
-        console.log(response)
-    })
-    .catch(error => {
-        console.log(error)
-    });
+    plugins = [
+                [MapPlugin, {
+                    imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
+                    center: { x: 785, y: 421 },
+                    rotation: '-12deg',
+                }],
+            ]
 
-    const plugins =  [
-            [MapPlugin, {
-                imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-                center: { x: 785, y: 421 },
-                rotation: '-12deg',
-            }],
-        ];
+    useEffect(() => {
+        getData().then(
+            result => {
+                setFetchCall(result)
+            });
+    },[]);
+
+    console.log(fetchCall)
+
+    // useEffect(() => {
+    //     const dataFetch = async () => {
+    //         const data = await (
+    //             await fetch("./data")
+    //             .then(response => {
+    //                 console.log(response)
+    //                 setPlugins([
+    //                     [MapPlugin, {
+    //                         imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
+    //                         center: { x: 785, y: 421 },
+    //                         rotation: '-12deg',
+    //                     }],
+    //                 ]);
+
+    //             })
+    //             .catch(error => {
+    //                 console.log(error)
+    //             })
+    //         )
+    //     }
+
+    //     dataFetch()
+    // }, []);
 
     // const plugins2 = [
     //     [CompassPlugin, {
@@ -40,10 +72,12 @@ function Map2D() {
     //     }]
     // ]
 
+    // console.log(plugins)
+
     return (
         <div className='Map2D'>
             <MainHeader />
-            <div className="container">
+            <div className="container info">
                 <h3>Start location: {start}</h3>
                 <h3>End location: {end}</h3>
                 <p><a href='..'>Choose new start location</a></p>
@@ -64,7 +98,7 @@ function Map2D() {
 
             <div id="viewer"></div>
             <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + '/images/Hall1.JPG'}
-                height={'80vh'} width={"100%"} plugins={plugins}
+                height={'70vh'} width={"100%"} plugins={plugins}
                 ></ReactPhotoSphereViewer>
             {/* {photoViewer()} */}
 		</div>
