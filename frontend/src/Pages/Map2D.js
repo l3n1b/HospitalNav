@@ -11,7 +11,8 @@ const YScale = 2.94737
 const YOffset = 462.8
 
 const getData = async (start) => {
-    const response = await fetch("http://localhost:3001/data/" + start, {
+    const hostname = window.location.hostname;
+    const response = await fetch("http://" + hostname + ":3001/data/" + start, {
         method : "GET",
         mode: 'cors'
     });
@@ -87,7 +88,7 @@ const Map2D = () => {
 
 function getPhotoViewer(plugins, imagePath) {
     return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
-    height={'70vh'} width={"100%"} plugins={plugins}
+    height={'60vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
 }
 
