@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Homepage.css'
-import UserInputModal from '../Partials/UserInputModal'
 import MainHeader from '../Partials/MainHeader';
 
 function Homepage() {
@@ -10,7 +9,6 @@ function Homepage() {
 
     return (
         <div className='Homepage'>
-            <UserInputModal />
             <MainHeader />
             <div>
                 <h3>Choose start location</h3>
