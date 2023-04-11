@@ -52,6 +52,8 @@ For frontend tests, run:
 cd frontend
 yarn cypress
 ```
+Note: the frontend must be running!
+
 For backend tests, run:
 ```sh
 cd backend
@@ -75,6 +77,10 @@ yarn install
 ```
 This will download the new dependancy to node_modules.
 
+#### **Next steps**
+
+
+FOR THEN END OF THE PROJECT
 
 ## Old Project
 ### Getting Started

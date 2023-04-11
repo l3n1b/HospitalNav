@@ -1,15 +1,28 @@
 describe('Visit homepage', () => {
-  it('passes', () => {
+  
+  it('Should visit the homepage and be redirected to start selector', () => {
     cy.visit('localhost:3000/')
+
+    cy.url().should('be.equal', 'localhost:3000/')
     
-    // set up an intercept for image grab
-    cy.intercept(
-      {
-        method: 'GET',
-        url: '/data/*',
-      },
-      // This is where we put what we want the response to look like
-      []
-    ).as('getData') // and assign an alias
+  })
+
+  it('Should visit the homepage with a start and be redirected to end selector', () => {
+    cy.visit('localhost:3000/')
+
+    cy.url().should('be.equal', 'localhost:3000/')
+    
+  })
+
+  it('Should visit the homepage with a start and an end', () => {
+    cy.visit('localhost:3000/')
+
+    cy.url().should('be.equal', 'localhost:3000/')
+
+    // check that the frontend makes a request to the backend for images
+    cy.intercept('/users*', { hostname: 'localhost' }, (req) => {
+      /* do something with request and/or response */
+    })
+    
   })
 })
