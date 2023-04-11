@@ -65,14 +65,18 @@ const Map2D = () => {
                     <h3 className="infoText">Start location:<br/>
                         {start}</h3>
                     <div className="buttonDiv">
-                        <button class="customButton" role="button">New Start Location</button>
+                        <a href="..">
+                            <button class="customButton" role="button">New Start Location</button>
+                        </a>
                     </div>
                 </div>
                 <div className="destBox">
                     <h3 className="infoText">End location:<br/>
                         {end}</h3>
                     <div className="buttonDiv">
-                        <button class="customButton" role="button">New End Location</button>
+                        <a href={"../" + start}>
+                            <button class="customButton" role="button">New End Location</button>
+                        </a>
                     </div>
                 </div>
                 {/* <p><a href='..'>Choose new start location</a></p>
@@ -100,7 +104,7 @@ const Map2D = () => {
 
 function getPhotoViewer(plugins, imagePath) {
     return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
-    height={'60vh'} width={"100%"} plugins={plugins}
+    height={'75vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
 }
 
