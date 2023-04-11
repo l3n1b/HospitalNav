@@ -4,11 +4,7 @@ HospitalNav is a web application that gives directions to all relevant locations
 
 ## Updated New Project
 ### Getting Started
-As of fall 2023, we have updated this project to use ReactJS and NodeJS w/Express. This change was made to stay more in line with the curriculum here at the University of Kentucky and also to streamline the development process.
-
-We have cut out the need for a database so, as of now, Docker is not required. We have left the instructions written by the team before us in this Readme so that, if needed, they can be used to run what was here before.
-
-#### Installation
+#### **Installation**
 1. Clone the repo
    ```sh
    https://github.com/l3n1b/HospitalNav.git
@@ -50,6 +46,35 @@ We have cut out the need for a database so, as of now, Docker is not required. W
    ```
    yarn start
    ```
+#### **Running Tests**
+For frontend tests, run:
+```sh
+cd frontend
+yarn cypress
+```
+For backend tests, run:
+```sh
+cd backend
+...
+```
+### Development
+As of fall 2023, we have updated this project to use ReactJS (frontend) and NodeJS w/Express (backend). This change was made to stay more in line with the curriculum (CS 316 Web Programming) here at the University of Kentucky and also to streamline the development process.
+
+We currently are not utilizing a database like the previous group was, instead the intention was to parse door, hallway, and endpoint information out of a JSON file. Whether this is a good strategy or not was up for some debate.
+
+#### **Adding new dependencies**
+Adding new dependencies (packages) for the front or backend is done through yarn. To add a new dependency, run:
+```sh
+yarn add [name of npm package]
+```
+This will update the package.json to include the new dependancy.
+
+Once this change is pushed, all other developers will need to run:
+```sh
+yarn install
+```
+This will download the new dependancy to node_modules.
+
 
 ## Old Project
 ### Getting Started
