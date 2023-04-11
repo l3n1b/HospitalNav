@@ -59,11 +59,23 @@ const Map2D = () => {
     return (
         <div className='Map2D'>
             <MainHeader />
-            <div className="container info">
-                <h3>Start location: {start}</h3>
-                <h3>End location: {end}</h3>
-                <p><a href='..'>Choose new start location</a></p>
-                <p><a href={'../' + start}>Choose new end location</a></p>
+            <div className="controlBox">
+                <div className="destBox">
+                    <h3 className="infoText">Start location:<br/>
+                        {start}</h3>
+                    <div className="buttonDiv">
+                        <button class="customButton" role="button">New Start Location</button>
+                    </div>
+                </div>
+                <div className="destBox">
+                    <h3 className="infoText">End location:<br/>
+                        {end}</h3>
+                    <div className="buttonDiv">
+                        <button class="customButton" role="button">New End Location</button>
+                    </div>
+                </div>
+                {/* <p><a href='..'>Choose new start location</a></p>
+                <p><a href={'../' + start}>Choose new end location</a></p> */}
             </div>
 
             {/* <img src={process.env.PUBLIC_URL + '/images/Hall1.JPG'} className="testImg"></img> */}
