@@ -11,7 +11,8 @@ const YScale = 2.94737
 const YOffset = 462.8
 
 const getData = async (start) => {
-    const response = await fetch("http://localhost:3001/data/" + start, {
+    const hostname = window.location.hostname;
+    const response = await fetch("http://" + hostname + ":3001/data/" + start, {
         method : "GET",
         mode: 'cors'
     });
@@ -64,14 +65,18 @@ const Map2D = () => {
                     <h3 className="infoText">Start location:<br/>
                         {start}</h3>
                     <div className="buttonDiv">
-                        <button class="customButton" role="button">New Start Location</button>
+                        <a href="..">
+                            <button class="customButton" role="button">New Start Location</button>
+                        </a>
                     </div>
                 </div>
                 <div className="destBox">
                     <h3 className="infoText">End location:<br/>
                         {end}</h3>
                     <div className="buttonDiv">
-                        <button class="customButton" role="button">New End Location</button>
+                        <a href={"../" + start}>
+                            <button class="customButton" role="button">New End Location</button>
+                        </a>
                     </div>
                 </div>
                 {/* <p><a href='..'>Choose new start location</a></p>
@@ -99,7 +104,7 @@ const Map2D = () => {
 
 function getPhotoViewer(plugins, imagePath) {
     return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
-    height={'70vh'} width={"100%"} plugins={plugins}
+    height={'75vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
 }
 

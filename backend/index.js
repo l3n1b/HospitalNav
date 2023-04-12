@@ -8,10 +8,7 @@ const cors = require("cors"); // Allows cross origin requests to go through and 
 const app = express()
 const router = new express.Router();
 const dataJson = require('./KYCTestValues.json');
-
-const corsOptions = {
-    origin: "http://localhost:3000",
-  };
+const os = require('os');
 
 /* for session things  */
 const uuid = require('uuid')
@@ -33,7 +30,21 @@ app.use(session({
     }
 }))
 
-app.use(cors(corsOptions));
+var networkInterfaces = os.networkInterfaces();
+const serverAddress = (networkInterfaces['Wi-Fi'][1].address);
+// Prevent client requests getting blocked
+app.use((req, res, next) => {
+    const corsWhitelist = [
+        'http://localhost:3000',
+        'http://' + serverAddress + ':3000'
+    ];
+    if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    }
+
+    next();
+});
 
 app.use(router)
 
