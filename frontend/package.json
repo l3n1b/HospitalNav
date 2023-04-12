@@ -13,7 +13,8 @@
     "react-photo-sphere-viewer": "^3.3.3-psv5.1.1",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",
