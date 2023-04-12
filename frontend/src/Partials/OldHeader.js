@@ -18,4 +18,14 @@ function Header() {
     )
 }
 
+function head() {
+    return 3;
+}
+
+function dead() {
+    return 4;
+}
+
+export {head, dead, Header};
+
 export default Header;

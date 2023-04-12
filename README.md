@@ -2,12 +2,93 @@
 
 HospitalNav is a web application that gives directions to all relevant locations within the UK Healthcare hospital system.
 
-## Getting Started
+## Updated New Project
+### Getting Started
+#### **Installation**
+1. Clone the repo
+   ```sh
+   https://github.com/l3n1b/HospitalNav.git
+   ```
+2. Install Node
+   
+   Download Link (Windows & macOS):
+   https://nodejs.org/en/download
+   
+   OR
+
+   Brew (macOS):
+   ```
+   brew install node
+   ```
+
+3. Install yarn
+   ```
+   npm install --global yarn
+   ```
+
+4. Install dependencies
+   
+   In two seperate terminal windows, run the following:
+   
+   terminal 1:
+   ```
+   cd frontend
+   yarn install
+   ```
+   terminal 2:
+   ```
+   cd backend
+   yarn install
+   ```
+5. Run the project
+   
+   In both terminal windows, run:
+   ```
+   yarn start
+   ```
+#### **Running Tests**
+For frontend tests, run:
+```sh
+cd frontend
+yarn cypress
+```
+Note: the frontend must be running!
+
+For backend tests, run:
+```sh
+cd backend
+...
+```
+### Development
+As of fall 2023, we have updated this project to use ReactJS (frontend) and NodeJS w/Express (backend). This change was made to stay more in line with the curriculum (CS 316 Web Programming) here at the University of Kentucky and also to streamline the development process.
+
+We currently are not utilizing a database like the previous group was, instead the intention was to parse door, hallway, and endpoint information out of a JSON file. Whether this is a good strategy or not was up for some debate.
+
+#### **Adding new dependencies**
+Adding new dependencies (packages) for the front or backend is done through yarn. To add a new dependency, run:
+```sh
+yarn add [name of npm package]
+```
+This will update the package.json to include the new dependancy.
+
+Once this change is pushed, all other developers will need to run:
+```sh
+yarn install
+```
+This will download the new dependancy to node_modules.
+
+#### **Next steps**
+
+
+FOR THEN END OF THE PROJECT
+
+## Old Project
+### Getting Started
 
 Below is what you need to get HospitalNav running.
 
 
-### Installation
+#### Installation
 
 
 1. Clone the repo
