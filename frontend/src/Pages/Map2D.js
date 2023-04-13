@@ -24,8 +24,6 @@ const Map2D = () => {
     let [photoViewerElement, setPhotoViewerElement] = useState();
     let [routeElement, setRouteElement] = useState();
 
-    let route;
-
     useEffect(() => {
         getData(start, end).then(
             result => {
@@ -43,21 +41,6 @@ const Map2D = () => {
 
             });
     },[]);
-
-    // const plugins2 = [
-    //     [CompassPlugin, {
-    //         hotspots: [
-    //         { longitude: '0deg' },
-    //         { longitude: '90deg' },
-    //         { longitude: '180deg' },
-    //         { longitude: '270deg' },
-    //         ],
-    //     }]
-    // ]
-
-    // {% for location in path %}
-    // <li id="{{ location.name }}" style="display:inline; border-radius: 8px; border-width:3px; border-style:solid; border-color:	#0000FF;">{{ location.name }}</li>
-    // {% endfor %}
 
     return (
         <div className='Map2D'>
@@ -100,9 +83,8 @@ function getPhotoViewer(plugins, imagePath) {
 
 function createRouteElement(routeData) {
     let locations = []
-    routeData.forEach( (item) => {
-        console.log(item.name)
-        locations.push(<div className='nav-item'>{item.name}</div>)
+    routeData.forEach( (location) => {
+        locations.push(<div className='nav-item'>{location}</div>)
         locations.push(<div className='nav-item'>&nbsp; → &nbsp;</div>)
     })
 
