@@ -34,7 +34,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="http://ukhealthgps.servehttp.com:36824">
+          <a class="navbar-brand" href="http://localhost:36824">
             <img class="logo-image" src="https://ukhealthcare.uky.edu/themes/custom/ukhc/images/ukhc-logo-small.png" alt="">
             GPS
           </a>
@@ -49,7 +49,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for startpoint in startpoints %}
-                        <li><a class="dropdown-item" href="http://ukhealthgps.servehttp.com:36824/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:36824/{{ startpoint }}&{{ end }}">{{ startpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -59,7 +59,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     {% for endpoint in endpoints %}
-                        <li><a class="dropdown-item" href="http://ukhealthgps.servehttp.com:36824/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:36824/{{ start }}&{{ endpoint }}">{{ endpoint }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -75,7 +75,7 @@
           {% if end != "NULL" %}
             <h3 style="display:inline">to {{ end }}</h3>
           {% endif %}
-          
+
           <ol>
               {% for location in path %}
               <li id="{{ location.name }}" style="display:inline; border-radius: 8px; border-width:3px; border-style:solid; border-color:	#0000FF;">{{ location.name }}</li>
@@ -86,10 +86,10 @@
     <img src="https://static.wixstatic.com/media/22d860_01bdd4d2d051442e9587b36b76bb5fa3~mv2.jpg/v1/fill/w_600,h_405,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/chandler-first-floor.jpg" class="img-fluid mx-auto d-block" alt="...">
     <img src="https://img.freepik.com/free-photo/blurred-abstract-background-interior-view-looking-out-toward-empty-office-lobby-entrance-doors-glass-curtain-wall-with-frame_1339-6370.jpg?w=996&t=st=1665948644~exp=1665949244~hmac=be09c965a4642191e1ae612e16fb501d76aacf89968fc0249420c5644b802cdf" class="float-start rounded" width="200" height="200">
     -->
-    
+
     <button onclick="prevImage()" type="button" class="btn btn-secondary btn-lg">BACK</button>
     <button onclick="nextImage()" type="button" class="btn btn-primary btn-lg">NEXT</button>
-      
+
     <button onclick="toggleViewer()" id=dim_button class="btn btn-success btn-lg" >3D-View</button>
 
 
@@ -109,34 +109,34 @@
 <script>
     var current = 0;
     var path = {{ jsonPath|safe }}
-    
+
     // If we do not have a start
     if ("{{ start }}" == "NULL") {
-      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              "Please choose an Entrance from the menu." 
+      document.getElementById("directions").innerHTML = "<strong><ins><mark>" +
+              "Please choose an Entrance from the menu."
               "</mark></ins></strong>";
     }
     // If we only have start
     else {
       if ("{{ start }}" != "NULL" && "{{ end }}" == "NULL") {
-        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-                "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu." 
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" +
+                "You are currently at " + "{{ start }}" + ". Please choose a Destination from the menu."
                 "</mark></ins></strong>";
         var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
           container: document.querySelector('#viewer'),
-          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + "{{ start }}",
+          panorama: "http://localhost:36824/get_image/" + "{{ start }}",
             caption: "{{ start }}",
         defaultLong: 0.0,
         });
       }
       else {
-        document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-                path[0].string_direction + 
+        document.getElementById("directions").innerHTML = "<strong><ins><mark>" +
+                path[0].string_direction +
                 "</mark></ins></strong>";
         var viewer = new PhotoSphereViewer.Viewer({ // initialize new photosphereviewer
           container: document.querySelector('#viewer'),
-          panorama: "http://ukhealthgps.servehttp.com:36824/get_image/" + path[0].name,
-      overlay: "http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[0].line_name,
+          panorama: "http://localhost:36824/get_image/" + path[0].name,
+      overlay: "http://localhost:36824/get_line_image/" + path[0].line_name,
             caption: path[0].name,
         defaultLong: path[0].angle,
         });
@@ -144,21 +144,21 @@
       document.getElementById("viewer").style.display = "block"; // show the display
       document.getElementById("{{ start }}").style.fontWeight = "bold";
     }
-    
+
       function nextImage() {
         if (current+1 < path.length){
             var element = document.getElementById(path[current].name);
             element.style.fontWeight = "normal";
             current += 1;
-			      document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              path[current].string_direction + 
+			      document.getElementById("directions").innerHTML = "<strong><ins><mark>" +
+              path[current].string_direction +
               "</mark></ins></strong>";
-            viewer.setPanorama("http://ukhealthgps.servehttp.com:36824/get_image/" + path[current].name)
-			 .then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
+            viewer.setPanorama("http://localhost:36824/get_image/" + path[current].name)
+			 .then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
             viewer.setOptions({
 				caption: path[current].name,
 			});
-			viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name);
+			viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name);
 			//different angles of cameras can cause jarring turns in animation, this should fix:
 			//get the angle facing opposite of the angle pointing back to the last node
 			start_angle = path[current].angle_back;
@@ -179,27 +179,27 @@
 				zoom: 0,
 				speed: '8rpm',
 			})
-			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
+			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
             var element = document.getElementById(path[current].name);
             element.style.fontWeight = "bold";
         }
       }
-    
+
     function prevImage() {
       if (current-1 >= 0){
             var element = document.getElementById(path[current].name);
             element.style.fontWeight = "normal";
             current -= 1;
-            document.getElementById("directions").innerHTML = "<strong><ins><mark>" + 
-              path[current].string_direction + 
+            document.getElementById("directions").innerHTML = "<strong><ins><mark>" +
+              path[current].string_direction +
               "</mark></ins></strong>";
-            viewer.setPanorama("http://ukhealthgps.servehttp.com:36824/get_image/" + path[current].name)
-			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
+            viewer.setPanorama("http://localhost:36824/get_image/" + path[current].name)
+			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
 
             viewer.setOptions({
 				caption: path[current].name,
 			});
-			viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name);
+			viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name);
 			start_angle = path[current].angle_back;
 			if (start_angle < 0.0) {
 				start_angle = start_angle + 3.14159;
@@ -216,7 +216,7 @@
 				zoom: 0,
 				speed: '8rpm',
 			})
-			.then(() => viewer.setOverlay("http://ukhealthgps.servehttp.com:36824/get_line_image/" + path[current].line_name));
+			.then(() => viewer.setOverlay("http://localhost:36824/get_line_image/" + path[current].line_name));
             element = document.getElementById(path[current].name);
             element.style.fontWeight = "bold";
       }

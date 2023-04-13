@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
-// import { Viewer } from '@photo-sphere-viewer/core';
 import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
 import './Map2d.css'
 
@@ -10,17 +9,13 @@ const XOffset = 309.9
 const YScale = 2.94737
 const YOffset = 462.8
 
-const getData = async (start) => {
+const getData = async (start, end) => {
     const hostname = window.location.hostname;
-    const response = await fetch("http://" + hostname + ":3001/data/" + start, {
+    const response = await fetch(`http://${hostname}:3001/data/${start}/`, {
         method : "GET",
         mode: 'cors'
     });
-    // const response = await fetch("http://localhost:3001/data/" + start);
     let data = await response.json()
-
-    // const data = await response.json();
-    // console.log(data);
     return data
 }
 
@@ -29,7 +24,7 @@ const Map2D = () => {
     let [photoViewerElement, setPhotoViewerElement] = useState();
 
     useEffect(() => {
-        getData(start).then(
+        getData(start, end).then(
             result => {
                 console.log(result)
                 let plugins = ([
@@ -43,9 +38,6 @@ const Map2D = () => {
             });
     },[]);
 
-    //     dataFetch()
-    // }, []);
-
     // const plugins2 = [
     //     [CompassPlugin, {
     //         hotspots: [
@@ -56,6 +48,10 @@ const Map2D = () => {
     //         ],
     //     }]
     // ]
+
+    // {% for location in path %}
+    // <li id="{{ location.name }}" style="display:inline; border-radius: 8px; border-width:3px; border-style:solid; border-color:	#0000FF;">{{ location.name }}</li>
+    // {% endfor %}
 
     return (
         <div className='Map2D'>
