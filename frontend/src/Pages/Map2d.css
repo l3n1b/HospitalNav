@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: row;
     /* justify-content: space-around; */
-    height: 15vh;
+    height: 10vh;
 }
 
 .destBox{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 3vh
+    padding-left: 1vh
 }
 
 .infoText {
@@ -20,13 +20,12 @@
 
 .buttonDiv {
     text-align: center;
-    padding-bottom: 3vh
 }
 
 .customButton {
     justify-content: center;
-    width: 25vw;
-    /* height: min(8vw, 8vh); */
+    /* width: 25vw; */
+    height: min(8vw, 8vh);
     font-size: max(2vw, 2vh);
 
     appearance: button;
@@ -56,4 +55,18 @@
 
 .customButton:focus {
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
+.test {
+    /* width: 100px; */
+    height: 5vh;
+}
+
+.nav-route {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-item {
 }

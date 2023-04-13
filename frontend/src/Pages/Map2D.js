@@ -22,6 +22,9 @@ const getData = async (start, end) => {
 const Map2D = () => {
     let {start, end} = useParams()
     let [photoViewerElement, setPhotoViewerElement] = useState();
+    let [routeElement, setRouteElement] = useState();
+
+    let route;
 
     useEffect(() => {
         getData(start, end).then(
@@ -36,9 +39,7 @@ const Map2D = () => {
                             ])
                 setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath));
 
-                result.route.forEach( (location) => {
-                    console.log(location.name)
-                })
+                setRouteElement(createRouteElement(result.route));
 
             });
     },[]);
@@ -63,8 +64,8 @@ const Map2D = () => {
             <MainHeader />
             <div className="controlBox">
                 <div className="destBox">
-                    <h3 className="infoText">Start location:<br/>
-                        {start}</h3>
+                    {/* <h3 className="infoText">Start location:<br/>
+                        {start}</h3> */}
                     <div className="buttonDiv">
                         <a href="..">
                             <button className="customButton" role="button">New Start Location</button>
@@ -72,31 +73,19 @@ const Map2D = () => {
                     </div>
                 </div>
                 <div className="destBox">
-                    <h3 className="infoText">End location:<br/>
-                        {end}</h3>
+                    {/* <h3 className="infoText">End location:<br/>
+                        {end}</h3> */}
                     <div className="buttonDiv">
                         <a href={"../" + start}>
                             <button className="customButton" role="button">New End Location</button>
                         </a>
                     </div>
                 </div>
-                {/* <p><a href='..'>Choose new start location</a></p>
-                <p><a href={'../' + start}>Choose new end location</a></p> */}
             </div>
 
-            {/* <img src={process.env.PUBLIC_URL + '/images/Hall1.JPG'} className="testImg"></img> */}
-
-            {/* const viewer = new PhotoSphereViewer.Viewer({
-            plugins: [
-                [PhotoSphereViewer.MapPlugin, {
-                    imageUrl: 'path/to/map.jpg',
-                    center: { x: 785, y: 421 },
-                    rotation: '-12deg',
-                }],
-            ],
-        }); */}
-
-            <div id="viewer"></div>
+            <div>
+                {routeElement}
+            </div>
 
             {photoViewerElement}
 		</div>
@@ -107,6 +96,23 @@ function getPhotoViewer(plugins, imagePath) {
     return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
     height={'75vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
+}
+
+function createRouteElement(routeData) {
+    let locations = []
+    routeData.forEach( (item) => {
+        console.log(item.name)
+        locations.push(<div className='nav-item'>{item.name}</div>)
+        locations.push(<div className='nav-item'>&nbsp; → &nbsp;</div>)
+    })
+
+    locations.pop() // remove last arrow
+
+    return (
+        <div className='test nav-route'>
+            {locations}
+        </div>
+    )
 }
 
 export default Map2D;
