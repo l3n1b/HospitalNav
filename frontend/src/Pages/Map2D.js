@@ -27,7 +27,6 @@ const Map2D = () => {
     useEffect(() => {
         getData(start, end).then(
             result => {
-                console.log(result)
                 let plugins = ([
                                 [MapPlugin, {
                                     imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),

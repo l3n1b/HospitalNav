@@ -16,7 +16,8 @@
             "name":"Hall5",
             "angle":0.181
          }
-      ]
+      ],
+      "entranceDetails": "Accessed from parking garage via Huguelet Avenue"
    },
    "Vascular Interventional Radiology":{
       "is_startpoint":"FALSE",
@@ -35,7 +36,8 @@
             "name":"Hall4",
             "angle":-0.8155
          }
-      ]
+      ],
+      "destinationDetails": "Interventional radiologists use state-of-the-art imaging modalities such as CT, fluoroscopy and ultrasound to perform image-guided, minimally invasive procedures to diagnose and treat conditions throughout the body such as cancer or stroke."
    },
    "Orthopaedics":{
       "is_startpoint":"FALSE",
@@ -54,7 +56,8 @@
             "name":"Vascular Interventional Radiology",
             "angle":0.683
          }
-      ]
+      ],
+      "destinationDetails": "General orthopaedics focuses on the diagnosis, treatment and management of conditions connected to bones, joints and the musculoskeletal system."
    },
    "Physical_Occupational Therapy":{
       "is_startpoint":"FALSE",
@@ -73,7 +76,8 @@
             "name":"Hall6",
             "angle":0.9157
          }
-      ]
+      ],
+      "destinationDetails": "This clinic offers physical and occupational therapy services for patients of all ages, from infancy to advanced age. Some common conditions being: Acute/chronic back pain, Lumbar spine surgery, Total knee and hip replacement, etc."
    },
    "X-Ray_MRI":{
       "is_startpoint":"FALSE",
@@ -92,7 +96,8 @@
             "name":"Hall3",
             "angle":2.0
          }
-      ]
+      ],
+      "destinationDetails": "UK Radiology provides state-of-the-art diagnostic imaging services for patients using computed tomography (CT), magnetic resonance imaging (MRI), radionuclide imaging (nuclear medicine), ultrasonography (US), and conventional radiography (X-ray)."
    },
    "Kentucky Neuroscience Institute":{
       "is_startpoint":"FALSE",
@@ -115,7 +120,8 @@
             "name":"Hall2",
             "angle":1.895
          }
-      ]
+      ],
+      "destinationDetails": "At the Kentucky Neuroscience Institute, neurologists and neurosurgeons work together to handle the management, evaluation, diagnosis and treatment of complex neurological and neuromuscular conditions such as Alzheimer’s disease, Parkinson’s disease, amyotrophic lateral sclerosis (ALS or Lou Gehrig’s disease), multiple sclerosis and stroke."
    },
    "Anesthesia Preop Services":{
       "is_startpoint":"FALSE",
@@ -134,7 +140,8 @@
             "name":"Pharmacy",
             "angle":1.232
          }
-      ]
+      ],
+      "destinationDetails": "UK Anesthesiology provides complete, advanced anesthesiology services for all surgical procedures performed at UK HealthCare, ranging from minor outpatient procedures to major operations such as transplantation. The department also provides comprehensive pain management for postoperative, chronic, and cancer-related pain syndromes."
    },
    "Pharmacy":{
       "is_startpoint":"FALSE",
@@ -157,7 +164,8 @@
             "name":"Hall7",
             "angle":2.568
          }
-      ]
+      ],
+      "destinationDetails": "Our pharmacy offer a full range of prescription medications services, over-the-counter medications and sundry items. Patients seeing physicians at UK HealthCare can have their prescriptions sent directly to the pharmacy by their doctor’s office for convenient pickup."
    },
    "General Surgery":{
       "is_startpoint":"FALSE",
@@ -176,7 +184,8 @@
             "name":"Hall10",
             "angle":1.667
          }
-      ]
+      ],
+      "destinationDetails": "UK General Surgery provides all aspects of patient care related to each field of general surgery, including gastrointestinal, surgical oncology, vascular, and trauma and critical care surgery."
    },
    "South Limestone Entrance A":{
       "is_startpoint":"TRUE",
@@ -191,7 +200,8 @@
             "name":"General Surgery",
             "angle":0.0628
          }
-      ]
+      ],
+      "entranceDetails": "Second door when turning into drive off of South Limestone"
    },
    "South Limestone Entrance B":{
       "is_startpoint":"TRUE",
@@ -206,7 +216,8 @@
             "name":"Pharmacy",
             "angle":-2.859
          }
-      ]
+      ],
+      "entranceDetails": "First door when turning into drive off of South Limestone"
    },
    "Image Records Center":{
       "is_startpoint":"FALSE",
@@ -225,7 +236,8 @@
             "name":"UHS Entrance",
             "angle":1.93
          }
-      ]
+      ],
+      "destinationDetails": "The Image Records Center can provide a copy of your Radiology images upon request. The images will be in CD format, and include a copy of the corresponding written report."
    },
    "UHS Entrance":{
       "is_startpoint":"TRUE",
@@ -240,7 +252,8 @@
             "name":"Image Records Center",
             "angle":0.0459
          }
-      ]
+      ],
+      "entranceDetails": "Accessed from South Limestone"
    },
    "Rose Street Entrance":{
       "is_startpoint":"TRUE",
@@ -255,7 +268,8 @@
             "name":"Hall1",
             "angle":-0.364
          }
-      ]
+      ],
+      "entranceDetails": "Accessed from Rose Street"
    },
    "Hall1":{
       "is_startpoint":"FALSE",

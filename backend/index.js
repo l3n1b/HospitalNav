@@ -9,6 +9,7 @@ const app = express()
 const router = new express.Router();
 const dataJson = require('./KYCTestValues.json');
 const os = require('os');
+const fs = require('fs')
 
 /* for session things  */
 const uuid = require('uuid')
@@ -105,6 +106,46 @@ router.route('/test')
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
+router.route('/card/:imgId')
+    .get((req, res) => {
+        let input = req.params.imgId;
+        let file = __dirname + "/backendData/cardImages/" + input
+
+        if (fs.existsSync(file + ".png")) { // check for png file
+            res.sendFile(file + ".png");
+        } else if (fs.existsSync(file + ".jpg")) { // check for jpg file
+            res.sendFile(file + ".jpg");
+        } else { // send placeholder image
+            res.sendFile(__dirname + "/backendData/cardImages/imgPlaceholder.jpg");
+        }
+    })
+
+
+// return all entrances
+router.route('/data/entrances')
+    .get((req, res) => {
+        let entrances = [];
+        for(let key in dataJson){
+            if(dataJson[key].is_startpoint == "TRUE") {
+                entrances.push({name: key, details: dataJson[key].entranceDetails})
+            }
+        }
+        res.send(entrances);
+    })
+
+// return all destinations
+router.route('/data/destinations')
+    .get((req, res) => {
+        let destinations = [];
+        for(let key in dataJson){
+            if(dataJson[key].is_endpoint == "TRUE") {
+                destinations.push({name: key, details: dataJson[key].destinationDetails})
+            }
+        }
+        res.send(destinations);
+    })
+
+
 router.route('/data/:startID')
 .get((req, res) => {
     let input = req.params.startID;
@@ -115,6 +156,7 @@ router.route('/data/:startID')
     res.send({x: x_coord, y: y_coord, imagePath: image_path})
 })
 
+// Return coordinates, image path, and navigation path from start to end
 router.route('/data/:startID/:endID')
 .get((req, res) => {
     let start = req.params.startID;
@@ -127,6 +169,7 @@ router.route('/data/:startID/:endID')
 
     res.send({x: x_coord, y: y_coord, imagePath: image_path, route: navigation_route});
 })
+
 
 // Shoutout to chat GPT for the layout and comments of this function
 // Diskstra's algorithm for finding the shortest path
