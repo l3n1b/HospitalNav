@@ -1,56 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Homepage.css'
 import MainHeader from '../Partials/MainHeader';
+import LocationCard from '../Partials/LocationCard';
+
+const getEntrances = async () => {
+    const hostname = window.location.hostname;
+    const response = await fetch(`http://${hostname}:3001/data/entrances`, {
+        method : "GET",
+        mode: 'cors'
+    });
+    let data = await response.json();
+    return data;
+}
 
 function Homepage() {
+    let [cardData, setCardData] = useState();
 
-    const [entryDoor, setEntryDoor] = useState(null)
-    const [goalLocation, setGoalLocation] = useState(null)
+    useEffect(() => {
+        getEntrances().then(result => setCardData(result));
+    },[]);
 
     return (
         <div className='Homepage'>
             <MainHeader />
             <div>
-                <h3>Choose start location</h3>
-                {/* <li><a href='1st Floor Main Entrance'>1st Floor Main Entrance</a></li> */}
-                                
-                <div class="card">
-                    {/* <img src="../backend/data/images/1st Floor Main Entrance.JPG" alt="1st Floor Main Entrance Photo" style={{width: '100%'}}/> */}
-                    <img src="../backend/shrek.jpg" alt="Shrek Image" style={{width: '100%'}} />
-                    <div class="container">
-                        <a href='1st Floor Main Entrance'>1st Floor Main Entrance</a>
-                        <p>Accessed from parking garage via Huguelet Avenue</p> 
-                    </div>
-                </div>
+                <h3 className="choose-start">Choose start location</h3>
 
-                <div class="card">
-                    <div class="container">
-                        <a href='UHS Entrance'>UHS Entrance</a>
-                        <p>Accessed from South Limestone</p> 
-                    </div>
-                </div>
+                <LocationCard data={cardData} start=""/>
 
-                <div class="card">
-                    <div class="container">
-                        <a href='South Limestone Entrance A'>South Limestone Entrance A</a>
-                        <p>Second door when turning into drive off of South Limestone</p> 
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="container">
-                        <a href='Rose Street Entrance'>Rose Street Entrance</a>
-                        <p>Accessed from Rose Street</p> 
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="container">
-                        <a href='South Limestone Entrance B'>South Limestone Entrance B</a>
-                        <p>First door when turning into drive off of South Limestone</p> 
-                    </div>
-                </div>
-                
             </div>
 		</div>
     )

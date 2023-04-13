@@ -9,6 +9,7 @@ const app = express()
 const router = new express.Router();
 const dataJson = require('./KYCTestValues.json');
 const os = require('os');
+const fs = require('fs')
 
 /* for session things  */
 const uuid = require('uuid')
@@ -42,7 +43,6 @@ app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     }
-
     next();
 });
 
@@ -106,6 +106,46 @@ router.route('/test')
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
+router.route('/card/:imgId')
+    .get((req, res) => {
+        let input = req.params.imgId;
+        let file = __dirname + "/backendData/cardImages/" + input
+
+        if (fs.existsSync(file + ".png")) { // check for png file
+            res.sendFile(file + ".png");
+        } else if (fs.existsSync(file + ".jpg")) { // check for jpg file
+            res.sendFile(file + ".jpg");
+        } else { // send placeholder image
+            res.sendFile(__dirname + "/backendData/cardImages/imgPlaceholder.jpg");
+        }
+    })
+
+
+// return all entrances
+router.route('/data/entrances')
+    .get((req, res) => {
+        let entrances = [];
+        for(let key in dataJson){
+            if(dataJson[key].is_startpoint == "TRUE") {
+                entrances.push({name: key, details: dataJson[key].entranceDetails})
+            }
+        }
+        res.send(entrances);
+    })
+
+// return all destinations
+router.route('/data/destinations')
+    .get((req, res) => {
+        let destinations = [];
+        for(let key in dataJson){
+            if(dataJson[key].is_endpoint == "TRUE") {
+                destinations.push({name: key, details: dataJson[key].destinationDetails})
+            }
+        }
+        res.send(destinations);
+    })
+
+
 router.route('/data/:startID')
 .get((req, res) => {
     let input = req.params.startID;
@@ -113,11 +153,88 @@ router.route('/data/:startID')
     y_coord = (dataJson[input]['y_coord']*2.94737)+462.8
     image_path = "/images/"+input+".JPG";
     // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
-    res.send({x: x_coord, y: y_coord, path: image_path})
+    res.send({x: x_coord, y: y_coord, imagePath: image_path})
+})
+
+// Return coordinates, image path, and navigation path from start to end
+router.route('/data/:startID/:endID')
+.get((req, res) => {
+    let start = req.params.startID;
+    let end = req.params.endID;
+    x_coord = (dataJson[start]['x_coord']*2.75846)+309.9;
+    y_coord = (dataJson[start]['y_coord']*2.94737)+462.8;
+    image_path = "/images/"+start+".JPG";
+
+    navigation_route = getRoute(start, end);
+
+    res.send({x: x_coord, y: y_coord, imagePath: image_path, route: navigation_route});
 })
 
 
+// Shoutout to chat GPT for the layout and comments of this function
+// Diskstra's algorithm for finding the shortest path
+// Applied to KYCTestValues.json looking at the connectionsList of each location
+function getRoute(startNode, endNode) {
+    const distances = {};
+    const visited = {};
+    const previous = {};
+    const queue = [];
 
+    // Initialize all distances to infinity, and the startNode's distance to 0
+    for (let node in dataJson) {
+      distances[node] = Infinity;
+    }
+    distances[startNode] = 0;
+
+    // Add the startNode to the queue
+    queue.push(startNode);
+
+    // Loop until the queue is empty
+    while (queue.length > 0) {
+      // Get the node with the shortest distance from the startNode
+      let currentNode = queue.shift();
+
+      // If this is the endNode, we're done!
+      if (currentNode === endNode) {
+        // Build the path by traversing the previous object
+        const path = [];
+        while (currentNode) {
+          path.push(currentNode);
+          currentNode = previous[currentNode];
+        }
+        path.reverse();
+        return path;
+      }
+
+      // Skip this node if we've already visited it
+      if (visited[currentNode]) {
+        continue;
+      }
+      visited[currentNode] = true;
+
+      // Update the distances of this node's neighbors
+      for (let neighbor of getConnections(currentNode)) {
+        let distance = 1;
+        let totalDistance = distance + distances[currentNode];
+        if (totalDistance < distances[neighbor]) {
+          distances[neighbor] = totalDistance;
+          previous[neighbor] = currentNode;
+          queue.push(neighbor);
+        }
+      }
+    }
+
+    // If we get here, there's no path from startNode to endNode
+    return null;
+  }
+
+function getConnections(location) {
+    let connections = [];
+    for(let connection of dataJson[location]['connectList']){
+        connections.push(connection.name);
+    }
+    return connections
+}
 
 // router
 //     .route("/cars/:carid")

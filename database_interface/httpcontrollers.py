@@ -45,22 +45,22 @@ def home():
 
     client.db_open(dbname, login, password)
     if simple:
-        return render_template('simple-main-page.html', 
-                            endpoints=getEndpoints(client), 
-                            startpoints=getStartpoints(client), 
-                            start='NULL', 
-                            end='NULL', 
-                            path=[], 
+        return render_template('simple-main-page.html',
+                            endpoints=getEndpoints(client),
+                            startpoints=getStartpoints(client),
+                            start='NULL',
+                            end='NULL',
+                            path=[],
                             jsonPath=json.dumps([]))
     else:
-        return render_template('main-page.html', 
-                            endpoints=getEndpoints(client), 
-                            startpoints=getStartpoints(client), 
-                            start='NULL', 
-                            end='NULL', 
-                            path=[], 
+        return render_template('main-page.html',
+                            endpoints=getEndpoints(client),
+                            startpoints=getStartpoints(client),
+                            start='NULL',
+                            end='NULL',
+                            path=[],
                             jsonPath=json.dumps([]))
-    
+
 @app.route('/<string:start>&<string:end>', methods=['GET'])
 def directions(start, end):
     dbname = "locations"
@@ -71,9 +71,9 @@ def directions(start, end):
     session_id = client.connect(login, password)
 
     client.db_open(dbname, login, password)
-    
+
     path = []
-    
+
     if (start != 'NULL') and (end != 'NULL'):
         if simple:
             path = simpleShortestPath(start, end)
@@ -81,22 +81,24 @@ def directions(start, end):
             path = shortestPath(start, end)
     elif (start != 'NULL'):
         incrementMetric(client, start)
-    
+
+    print("Path:", path)
+
     if simple:
-        return render_template('simple-main-page.html', 
-                            endpoints=getEndpoints(client), 
-                            startpoints=getStartpoints(client), 
-                            start=start, 
-                            end=end, 
-                            path=path, 
+        return render_template('simple-main-page.html',
+                            endpoints=getEndpoints(client),
+                            startpoints=getStartpoints(client),
+                            start=start,
+                            end=end,
+                            path=path,
                             jsonPath=json.dumps(path))
     else:
-        return render_template('main-page.html', 
-                            endpoints=getEndpoints(client), 
-                            startpoints=getStartpoints(client), 
-                            start=start, 
-                            end=end, 
-                            path=path, 
+        return render_template('main-page.html',
+                            endpoints=getEndpoints(client),
+                            startpoints=getStartpoints(client),
+                            start=start,
+                            end=end,
+                            path=path,
                             jsonPath=json.dumps(path))
 
 @app.route('/get_endpoints', methods=['GET'])
@@ -110,7 +112,7 @@ def get_endpoints():
 
     client.db_open(dbname, login, password)
     return jsonify(getEndpoints(client))
-    
+
 @app.route('/get_image/<string:name>', methods=['GET'])
 def get_image(name):
     if simple:
