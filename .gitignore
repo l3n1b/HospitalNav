@@ -2,3 +2,4 @@ data/images/lines/
 *.whl
 *.yml
 *.DS_Store
+database_interface/__pycache__
