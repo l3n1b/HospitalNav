@@ -28,7 +28,7 @@ function ChooseEnd() {
                 <h3>Start location chosen: {start}</h3>
                 <h3>Choose end location</h3>
 
-                <LocationCard data={cardData}/>
+                <LocationCard data={cardData} start={start}/>
             </div>
 		</div>
     )

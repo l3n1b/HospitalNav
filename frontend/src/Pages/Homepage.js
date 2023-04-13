@@ -26,7 +26,7 @@ function Homepage() {
             <div>
                 <h3 className="choose-start">Choose start location</h3>
 
-                <LocationCard data={cardData}/>
+                <LocationCard data={cardData} start=""/>
 
             </div>
 		</div>
