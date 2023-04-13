@@ -11,7 +11,7 @@ const YOffset = 462.8
 
 const getData = async (start, end) => {
     const hostname = window.location.hostname;
-    const response = await fetch(`http://${hostname}:3001/data/${start}/`, {
+    const response = await fetch(`http://${hostname}:3001/data/${start}/${end}`, {
         method : "GET",
         mode: 'cors'
     });
@@ -34,7 +34,12 @@ const Map2D = () => {
                                     rotation: '-12deg',
                                 }],
                             ])
-                setPhotoViewerElement(getPhotoViewer(plugins, result.path));
+                setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath));
+
+                result.route.forEach( (location) => {
+                    console.log(location.name)
+                })
+
             });
     },[]);
 
@@ -62,7 +67,7 @@ const Map2D = () => {
                         {start}</h3>
                     <div className="buttonDiv">
                         <a href="..">
-                            <button class="customButton" role="button">New Start Location</button>
+                            <button className="customButton" role="button">New Start Location</button>
                         </a>
                     </div>
                 </div>
@@ -71,7 +76,7 @@ const Map2D = () => {
                         {end}</h3>
                     <div className="buttonDiv">
                         <a href={"../" + start}>
-                            <button class="customButton" role="button">New End Location</button>
+                            <button className="customButton" role="button">New End Location</button>
                         </a>
                     </div>
                 </div>

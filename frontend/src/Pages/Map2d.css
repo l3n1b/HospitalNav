@@ -1,7 +1,7 @@
 .controlBox {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     height: 15vh;
 }
 
@@ -9,22 +9,24 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-left: 3vh
 }
 
 .infoText {
     text-align: center;
-    width: 40vw;
+    /* width: 40vw; */
     font-size: max(2vw, 2vh);
 }
 
 .buttonDiv {
     text-align: center;
+    padding-bottom: 3vh
 }
 
 .customButton {
     justify-content: center;
     width: 25vw;
-    height: min(8vw, 8vh);
+    /* height: min(8vw, 8vh); */
     font-size: max(2vw, 2vh);
 
     appearance: button;

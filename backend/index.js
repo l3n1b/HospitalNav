@@ -113,10 +113,27 @@ router.route('/data/:startID')
     y_coord = (dataJson[input]['y_coord']*2.94737)+462.8
     image_path = "/images/"+input+".JPG";
     // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
-    res.send({x: x_coord, y: y_coord, path: image_path})
+    res.send({x: x_coord, y: y_coord, imagePath: image_path})
 })
 
+router.route('/data/:startID/:endID')
+.get((req, res) => {
+    let start = req.params.startID;
+    let end = req.params.endID;
+    x_coord = (dataJson[start]['x_coord']*2.75846)+309.9
+    y_coord = (dataJson[start]['y_coord']*2.94737)+462.8
+    image_path = "/images/"+start+".JPG";
 
+    navigation_route = getRoute(start, end)
+
+    res.send({x: x_coord, y: y_coord, imagePath: image_path, route: navigation_route})
+})
+
+function getRoute(start, end) {
+    return [{'name': '1st Floor Main Entrance', 'x_coord': 250.0, 'y_coord': 98.0, 'floor': '1', 'angle': -0.8746, 'angle_back': 2.266992653589793, 'string_direction': 'Head straight for 15 feet', 'line_name': 'line_1st Floor Main Entrance_Hall4_Vascular Interventional Radiology.png'},
+    {'name': 'Hall4', 'x_coord': 264.0, 'y_coord': 88.0, 'floor': '1', 'angle_back': 0.063, 'angle': 3.0, 'string_direction': 'Head straight for 25 feet', 'line_name': 'line_Hall4_Vascular Interventional Radiology.png'},
+    {'name': 'Vascular Interventional Radiology', 'x_coord': 289.0, 'y_coord': 86.0, 'floor': '1', 'angle_back': -0.8155, 'angle': 2.326092653589793, 'string_direction': "You've arrived!", 'line_name': 'line_Vascular Interventional Radiology.png'}]
+}
 
 
 // router
