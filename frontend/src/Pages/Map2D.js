@@ -20,6 +20,13 @@ const Map2D = () => {
     let {start, end} = useParams()
     let [photoViewerElement, setPhotoViewerElement] = useState();
     let [routeElement, setRouteElement] = useState();
+    let [activeLocation, setActiveLocation] = useState();
+    let [nextLocation, setNextLocation] = useState();
+    let [route, setRoute] = useState();
+
+    if (activeLocation === undefined || activeLocation === null) {
+        setActiveLocation(start);
+    }
 
     // useEffect tells the program to do something after the component renders
     useEffect(() => {
@@ -32,12 +39,23 @@ const Map2D = () => {
                                     rotation: '-12deg',
                                 }],
                             ])
+
+                setRoute(result.route);
                 setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath)); // Store photo viewer element to variable
 
-                setRouteElement(createRouteElement(result.route)); // Store route element to variable
+                setRouteElement(createRouteElement(result.route, activeLocation)); // Store route element to variable
 
+                setNextLocation(getNextLocation(result.route, activeLocation)); // Set next location for next button to take user to
             });
     },[]);
+
+    const loadNext = (location) => {
+        console.log(location);
+        setActiveLocation(location);
+        console.log(activeLocation);
+        setRouteElement(createRouteElement(route, location));
+        setNextLocation(getNextLocation(route, location));
+    }
 
     // create the map page out of the collected data
     return (
@@ -58,6 +76,11 @@ const Map2D = () => {
                         </a>
                     </div>
                 </div>
+                <div className="destBox">
+                    <div className="buttonDiv">
+                        <button className="customButton" onClick={() => loadNext(nextLocation)} role="button">Next</button>
+                    </div>
+                </div>
             </div>
 
             {routeElement}
@@ -75,11 +98,17 @@ function getPhotoViewer(plugins, imagePath) {
 }
 
 // Creates an element with the list of locations to be visited on the path to the patient's destination
-function createRouteElement(routeData) {
+function createRouteElement(routeData, activeLocation) {
     let locations = []
+
     routeData.forEach( (location) => {
-        locations.push(<div className='nav-item'>{location}</div>)
-        locations.push(<div className='nav-item'>&nbsp; → &nbsp;</div>)
+        let thisItemBold = false;
+        if (activeLocation === location) { // on active location
+            thisItemBold = true; // make this element bold
+        }
+
+        locations.push(<div key={location} className={`navitem ${thisItemBold ? "bold-location" : ""}`}>{location}</div>)
+        locations.push(<div key={location + "Arrow"} className='nav-item'>&nbsp; → &nbsp;</div>)
     })
 
     locations.pop() // remove last arrow
@@ -89,6 +118,20 @@ function createRouteElement(routeData) {
             {locations}
         </div>
     )
+}
+
+function getNextLocation(route, activeLocation) {
+    for(let i = 0; i < route.length; i++) {
+        if (route[i] === activeLocation) {
+            if(i < route.length - 1) {
+                return route[i+1];
+            }
+            else
+                return route[0];
+        }
+    }
+
+    return null;
 }
 
 export default Map2D;

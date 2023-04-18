@@ -68,3 +68,7 @@
 .nav-item {
     /* font-size: max(1.5vw, 1.5vh); */
 }
+
+.bold-location {
+    font-weight: bold;
+}
