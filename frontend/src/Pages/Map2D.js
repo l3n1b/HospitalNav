@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
 import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
 import './Map2d.css'
+import MapButton from '../Partials/MapButton';
 
 // Asynchronous function to get image, coordinate, and route information from the backend
 const getData = async (start, activeLocation, end) => {
@@ -20,49 +21,31 @@ const Map2D = () => {
     let {start, end} = useParams()
     let [photoViewerElement, setPhotoViewerElement] = useState();
     let [routeElement, setRouteElement] = useState();
-    let [activeLocation, setActiveLocation] = useState();
     let [nextLocation, setNextLocation] = useState();
-    // let [route, setRoute] = useState();
 
-    if (activeLocation === undefined || activeLocation === null) {
-        setActiveLocation(start);
-    }
-
+    // Set photo sphere viewer and route element and nextLocation variable
     const rerender = (result, location) => {
-        let plugins = ([ // set up plugin for photo sphere viewer
-                        [MapPlugin, {
-                            imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-                            center: { x: result.x, y: result.y },
-                            rotation: '-12deg',
-                        }],
-                    ])
-
-        // setRoute(result.route);
-        console.log(result.imagePath);
+        let plugins = createMapPlugin(result.x, result.y);
         setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath)); // Store photo viewer element to variable
-
         setRouteElement(createRouteElement(result.route, location)); // Store route element to variable
-
         setNextLocation(getNextLocation(result.route, location)); // Set next location for next button to take user to
     }
 
     // useEffect tells the program to do something after the component renders
     useEffect(() => {
-        getData(start, activeLocation, end).then( // retrieve data from backend
-            result => {rerender(result, activeLocation);}
+        getData(start, start, end).then( // retrieve data from backend
+            result => {rerender(result, start);}
             );
     },[]);
 
+    // function for Next button to call to re-render page
     const loadNext = (location) => {
-        setActiveLocation(location);
         setPhotoViewerElement(null);
         getData(start, location, end).then(
             (result) => {
                 rerender(result, nextLocation);
             }
         )
-
-
     }
 
     // create the map page out of the collected data
@@ -70,20 +53,9 @@ const Map2D = () => {
         <div className='Map2D'>
             <MainHeader />
             <div className="controlBox">
-                <div className="destBox">
-                    <div className="buttonDiv">
-                        <a href="..">
-                            <button className="customButton" role="button">New Start Location</button>
-                        </a>
-                    </div>
-                </div>
-                <div className="destBox">
-                    <div className="buttonDiv">
-                        <a href={"../" + start}>
-                            <button className="customButton" role="button">New End Location</button>
-                        </a>
-                    </div>
-                </div>
+                <MapButton link=".." displayText="New Start Location" />
+                <MapButton link={"../" + start} displayText="New End Location" />
+
                 <div className="destBox">
                     <div className="buttonDiv">
                         <button className="customButton" onClick={() => loadNext(nextLocation)} role="button">Next</button>
@@ -116,12 +88,14 @@ function createRouteElement(routeData, activeLocation) {
             thisItemBold = true; // make this element bold
         }
 
+        // puts a div with location text and a div with just an arrow into locations array
         locations.push(<div key={location} className={`navitem ${thisItemBold ? "bold-location" : ""}`}>{location}</div>)
         locations.push(<div key={location + "Arrow"} className='nav-item'>&nbsp; → &nbsp;</div>)
     })
 
     locations.pop() // remove last arrow
 
+    // return constucted array of divs
     return (
         <div className='nav-route'>
             {locations}
@@ -129,6 +103,8 @@ function createRouteElement(routeData, activeLocation) {
     )
 }
 
+// Return what the next location will be given the route and current location
+// Wraps around to the first location if at the last location in route
 function getNextLocation(route, activeLocation) {
     for(let i = 0; i < route.length; i++) {
         if (route[i] === activeLocation) {
@@ -141,6 +117,17 @@ function getNextLocation(route, activeLocation) {
     }
 
     return null;
+}
+
+// set up plugin for photo sphere viewer
+function createMapPlugin(x, y) {
+    return ([
+        [MapPlugin, {
+            imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
+            center: { x, y },
+            rotation: '-12deg',
+        }],
+    ])
 }
 
 export default Map2D;
