@@ -5,9 +5,9 @@ import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
 import './Map2d.css'
 
 // Asynchronous function to get image, coordinate, and route information from the backend
-const getData = async (start, end) => {
+const getData = async (start, activeLocation, end) => {
     const hostname = window.location.hostname;
-    const response = await fetch(`http://${hostname}:3001/data/${start}/${end}`, {
+    const response = await fetch(`http://${hostname}:3001/data/${start}/${activeLocation}/${end}`, {
         method : "GET",
         mode: 'cors'
     });
@@ -22,39 +22,47 @@ const Map2D = () => {
     let [routeElement, setRouteElement] = useState();
     let [activeLocation, setActiveLocation] = useState();
     let [nextLocation, setNextLocation] = useState();
-    let [route, setRoute] = useState();
+    // let [route, setRoute] = useState();
 
     if (activeLocation === undefined || activeLocation === null) {
         setActiveLocation(start);
     }
 
+    const rerender = (result, location) => {
+        let plugins = ([ // set up plugin for photo sphere viewer
+                        [MapPlugin, {
+                            imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
+                            center: { x: result.x, y: result.y },
+                            rotation: '-12deg',
+                        }],
+                    ])
+
+        // setRoute(result.route);
+        console.log(result.imagePath);
+        setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath)); // Store photo viewer element to variable
+
+        setRouteElement(createRouteElement(result.route, location)); // Store route element to variable
+
+        setNextLocation(getNextLocation(result.route, location)); // Set next location for next button to take user to
+    }
+
     // useEffect tells the program to do something after the component renders
     useEffect(() => {
-        getData(start, end).then( // retrieve data from backend
-            result => {
-                let plugins = ([ // set up plugin for photo sphere viewer
-                                [MapPlugin, {
-                                    imageUrl: (process.env.PUBLIC_URL + '/maps/Floor1Map.jpg'),
-                                    center: { x: result.x, y: result.y },
-                                    rotation: '-12deg',
-                                }],
-                            ])
-
-                setRoute(result.route);
-                setPhotoViewerElement(getPhotoViewer(plugins, result.imagePath)); // Store photo viewer element to variable
-
-                setRouteElement(createRouteElement(result.route, activeLocation)); // Store route element to variable
-
-                setNextLocation(getNextLocation(result.route, activeLocation)); // Set next location for next button to take user to
-            });
+        getData(start, activeLocation, end).then( // retrieve data from backend
+            result => {rerender(result, activeLocation);}
+            );
     },[]);
 
     const loadNext = (location) => {
-        console.log(location);
         setActiveLocation(location);
-        console.log(activeLocation);
-        setRouteElement(createRouteElement(route, location));
-        setNextLocation(getNextLocation(route, location));
+        setPhotoViewerElement(null);
+        getData(start, location, end).then(
+            (result) => {
+                rerender(result, nextLocation);
+            }
+        )
+
+
     }
 
     // create the map page out of the collected data
@@ -92,6 +100,7 @@ const Map2D = () => {
 
 // Create photo sphere viewer as react component
 function getPhotoViewer(plugins, imagePath) {
+    console.log(imagePath)
     return <ReactPhotoSphereViewer src={process.env.PUBLIC_URL + imagePath}
     height={'75vh'} width={"100%"} plugins={plugins}
     ></ReactPhotoSphereViewer>
@@ -114,7 +123,7 @@ function createRouteElement(routeData, activeLocation) {
     locations.pop() // remove last arrow
 
     return (
-        <div className='test nav-route'>
+        <div className='nav-route'>
             {locations}
         </div>
     )
