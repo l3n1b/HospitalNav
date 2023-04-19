@@ -110,6 +110,7 @@ router.route('/test')
         res.sendFile("C:\\Users\\jlindemuth\\Documents\\CS 499 Project Local\\HospitalNav\\backend\\shrek.jpg");
     })
 
+// Return image if it exists with the right name and .png or .jpg extension
 router.route('/card/:imgId')
     .get((req, res) => {
         let input = req.params.imgId;
@@ -149,31 +150,20 @@ router.route('/data/destinations')
         res.send(destinations);
     })
 
-
-router.route('/data/:startID')
-.get((req, res) => {
-    let input = req.params.startID;
-    x_coord = (dataJson[input]['x_coord']*2.75846)+309.9
-    y_coord = (dataJson[input]['y_coord']*2.94737)+462.8
-    image_path = "/images/"+input+".JPG";
-    // res.send(`The x coordinate is: ${x_coord} and the y coordinate is: ${y_coord} The image path is ${image_path}`);
-    res.send({x: x_coord, y: y_coord, imagePath: image_path})
-})
-
 // Return coordinates, image path, and navigation path from start to end
-router.route('/data/:startID/:endID')
+router.route('/data/:startID/:currentID/:endID')
 .get((req, res) => {
     let start = req.params.startID;
     let end = req.params.endID;
-    x_coord = (dataJson[start]['x_coord']*2.75846)+309.9;
-    y_coord = (dataJson[start]['y_coord']*2.94737)+462.8;
-    image_path = "/images/"+start+".JPG";
+    let current = req.params.currentID;
+    x_coord = (dataJson[current]['x_coord']*2.75846)+309.9;
+    y_coord = (dataJson[current]['y_coord']*2.94737)+462.8;
+    image_path = "/images/"+current+".JPG";
 
     navigation_route = getRoute(start, end);
 
     res.send({x: x_coord, y: y_coord, imagePath: image_path, route: navigation_route});
 })
-
 
 // Diskstra's algorithm for finding the shortest path
 // Applied to KYCTestValues.json looking at the connectionsList of each location

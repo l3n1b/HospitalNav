@@ -56,7 +56,7 @@
          }
       ]
    },
-   "Physical_Occupational Therapy":{
+   "Physical Occupational Therapy":{
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
       "x_coord":251,
@@ -75,7 +75,7 @@
          }
       ]
    },
-   "X-Ray_MRI":{
+   "X-Ray MRI":{
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
       "x_coord":395,
@@ -290,7 +290,7 @@
             "angle":-1.668
          },
          {
-            "name":"X-Ray_MRI",
+            "name":"X-Ray MRI",
             "angle":1.49
          }
       ]
@@ -305,7 +305,7 @@
       "map":"KYCF1",
       "connectList":[
          {
-            "name":"X-Ray_MRI",
+            "name":"X-Ray MRI",
             "angle":3.078
          },
          {
@@ -347,7 +347,7 @@
             "angle":3.11
          },
          {
-            "name":"Physical_Occupational Therapy",
+            "name":"Physical Occupational Therapy",
             "angle":-0.05
          }
       ]
@@ -362,7 +362,7 @@
       "map":"KYCF1",
       "connectList":[
          {
-            "name":"Physical_Occupational Therapy",
+            "name":"Physical Occupational Therapy",
             "angle":1.587
          },
          {

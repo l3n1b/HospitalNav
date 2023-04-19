@@ -59,7 +59,7 @@
       ],
       "destinationDetails": "General orthopaedics focuses on the diagnosis, treatment and management of conditions connected to bones, joints and the musculoskeletal system."
    },
-   "Physical_Occupational Therapy":{
+   "Physical Occupational Therapy":{
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
       "x_coord":251,
@@ -79,7 +79,7 @@
       ],
       "destinationDetails": "This clinic offers physical and occupational therapy services for patients of all ages, from infancy to advanced age. Some common conditions being: Acute/chronic back pain, Lumbar spine surgery, Total knee and hip replacement, etc."
    },
-   "X-Ray_MRI":{
+   "X-Ray MRI":{
       "is_startpoint":"FALSE",
       "is_endpoint":"TRUE",
       "x_coord":395,
@@ -304,7 +304,7 @@
             "angle":-1.668
          },
          {
-            "name":"X-Ray_MRI",
+            "name":"X-Ray MRI",
             "angle":1.49
          }
       ]
@@ -319,7 +319,7 @@
       "map":"KYCF1",
       "connectList":[
          {
-            "name":"X-Ray_MRI",
+            "name":"X-Ray MRI",
             "angle":3.078
          },
          {
@@ -361,7 +361,7 @@
             "angle":3.11
          },
          {
-            "name":"Physical_Occupational Therapy",
+            "name":"Physical Occupational Therapy",
             "angle":-0.05
          }
       ]
@@ -376,7 +376,7 @@
       "map":"KYCF1",
       "connectList":[
          {
-            "name":"Physical_Occupational Therapy",
+            "name":"Physical Occupational Therapy",
             "angle":1.587
          },
          {
