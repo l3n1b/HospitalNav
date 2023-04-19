@@ -31,6 +31,7 @@ app.use(session({
     }
 }))
 
+// this makes network things easier
 var networkInterfaces = os.networkInterfaces();
 const serverAddress = (networkInterfaces['Wi-Fi'][1].address);
 // Prevent client requests getting blocked
@@ -61,6 +62,7 @@ app.get("/helloworld", (req, res) => {
     res.send("Hello World!")
 })
 
+// catches errors
 app.listen(port, err => {
     if (err) {
       return console.log("ERROR", err);
@@ -68,6 +70,7 @@ app.listen(port, err => {
     console.log(`Listening on port ${port}`);
 });
 
+// root route
 router.route('/')
     .get((req, res)=>{
         res.send(`This is the root!`);
@@ -76,6 +79,7 @@ router.route('/')
         res.send("I'm on post for /");
     })
 
+// routes for getting resources
 router.route('/start/:startID')
     .get((req, res)=>{
         res.send(`GET: Requesting Resource "${req.params.startID}" from /start`);
