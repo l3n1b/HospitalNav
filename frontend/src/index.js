@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Homepage from './Pages/Homepage';
 import ChooseEnd from './Pages/ChooseEnd';
-import Map2D from './Pages/Map2D';
+import MapPage from './Pages/MapPage';
 import {
   BrowserRouter,
   Routes,
@@ -18,8 +18,8 @@ root.render(
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/:start" element={<ChooseEnd />} />
-        <Route path="/noStart/:end" element={<Map2D />} />
-        <Route path="/:start/:end" element={<Map2D />} />
+        <Route path="/noStart/:end" element={<MapPage />} />
+        <Route path="/:start/:end" element={<MapPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

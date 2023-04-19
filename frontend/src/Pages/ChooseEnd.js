@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
 import LocationCard from '../Partials/LocationCard';
+import './ChooseEnd.css'
 
 const getDestinations = async () => {
     const hostname = window.location.hostname;
@@ -25,8 +26,8 @@ function ChooseEnd() {
         <div className='ChooseEnd'>
             <MainHeader />
             <div className='container'>
-                <h3>Start location chosen: {start}</h3>
-                <h3>Choose end location</h3>
+                <h3 className="choose-end">Start location: {start}</h3>
+                <h4 className="choose-end">Select what destination you are going to</h4>
 
                 <LocationCard data={cardData} start={start}/>
             </div>

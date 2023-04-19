@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import MainHeader from '../Partials/MainHeader';
 import { ReactPhotoSphereViewer, MapPlugin } from 'react-photo-sphere-viewer';
-import './Map2d.css'
+import './MapPage.css'
 import MapButton from '../Partials/MapButton';
 
 // Asynchronous function to get image, coordinate, and route information from the backend
@@ -17,7 +17,7 @@ const getData = async (start, activeLocation, end) => {
 }
 
 // Function that returns the map component to be rendered
-const Map2D = () => {
+const MapPage = () => {
     let {start, end} = useParams()
     let [photoViewerElement, setPhotoViewerElement] = useState();
     let [routeElement, setRouteElement] = useState();
@@ -50,15 +50,15 @@ const Map2D = () => {
 
     // create the map page out of the collected data
     return (
-        <div className='Map2D'>
+        <div className='MapPage'>
             <MainHeader />
             <div className="controlBox">
-                <MapButton link=".." displayText="New Start Location" />
-                <MapButton link={"../" + start} displayText="New End Location" />
+                <MapButton link=".." displayText="New Entrance" />
+                <MapButton link={"../" + start} displayText="New Destination" />
 
                 <div className="destBox">
                     <div className="buttonDiv">
-                        <button className="customButton" onClick={() => loadNext(nextLocation)} role="button">Next</button>
+                        <button className="customButton" onClick={() => loadNext(nextLocation)} role="button">Next Image</button>
                     </div>
                 </div>
             </div>
@@ -130,4 +130,4 @@ function createMapPlugin(x, y) {
     ])
 }
 
-export default Map2D;
+export default MapPage;

@@ -24,7 +24,7 @@ function Homepage() {
         <div className='Homepage'>
             <MainHeader />
             <div>
-                <h3 className="choose-start">Choose start location</h3>
+                <h3 className="choose-start">Select which entrance you used</h3>
 
                 <LocationCard data={cardData} start=""/>
 
